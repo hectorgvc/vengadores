@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vengadores Workflow</title>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  :root {
+    --brand: #e11d48;
+    --brand-dark: #9f1239;
+    --brand-light: #fb7185;
+    --bg: #0f0f0f;
+    --bg2: #18181b;
+    --bg3: #27272a;
+    --border: #3f3f46;
+    --text: #f4f4f5;
+    --text2: #a1a1aa;
+    --opus: #8b5cf6;
+    --sonnet: #3b82f6;
+    --haiku: #10b981;
+    --testsprite: #f59e0b;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; }
+  a { color: var(--brand-light); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* Layout */
+  .hero { background: linear-gradient(135deg, #18181b 0%, #1c0a14 100%); border-bottom: 1px solid var(--border); padding: 64px 24px; text-align: center; }
+  .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .hero h1 span { color: var(--brand); }
+  .hero p { font-size: 1.15rem; color: var(--text2); max-width: 600px; margin: 0 auto 32px; }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 20px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; border: none; cursor: pointer; transition: opacity .15s, transform .1s; }
+  .btn:hover { opacity: .88; transform: translateY(-1px); }
+  .btn-primary { background: var(--brand); color: #fff; }
+  .btn-secondary { background: var(--bg3); color: var(--text); border: 1px solid var(--border); }
+  .icon { width: 18px; height: 18px; }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 64px 0; }
+  section + section { border-top: 1px solid var(--border); }
+  h2 { font-size: 1.75rem; font-weight: 700; margin-bottom: 8px; }
+  h2 .sub { font-size: 1rem; font-weight: 400; color: var(--text2); display: block; margin-top: 4px; }
+  h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 12px; }
+
+  /* Cards */
+  .grid { display: grid; gap: 16px; }
+  .grid-2 { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+  .grid-3 { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .card-icon { width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .card-icon i { width: 20px; height: 20px; }
+  .card-title { font-weight: 600; font-size: 1rem; }
+  .card-desc { font-size: 0.875rem; color: var(--text2); }
+
+  /* Badges */
+  .badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+  .badge-opus { background: rgba(139,92,246,.2); color: #a78bfa; border: 1px solid rgba(139,92,246,.3); }
+  .badge-sonnet { background: rgba(59,130,246,.2); color: #93c5fd; border: 1px solid rgba(59,130,246,.3); }
+  .badge-haiku { background: rgba(16,185,129,.2); color: #6ee7b7; border: 1px solid rgba(16,185,129,.3); }
+  .badge-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+  .badge-opus .badge-dot { background: #8b5cf6; }
+  .badge-sonnet .badge-dot { background: #3b82f6; }
+  .badge-haiku .badge-dot { background: #10b981; }
+
+  /* Agent cards */
+  .agent-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+  .agent-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+  .agent-name { font-weight: 700; font-size: 1rem; font-family: monospace; }
+  .agent-desc { font-size: 0.85rem; color: var(--text2); }
+  .agent-card.is-new { border-color: rgba(225,29,72,.4); background: linear-gradient(135deg, #18181b 0%, #1a0810 100%); }
+  .agent-card.is-new::before { content: 'NUEVO'; font-size: 0.65rem; font-weight: 700; color: var(--brand); letter-spacing: .1em; }
+
+  /* Skills table */
+  .skills-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  .skills-table th { text-align: left; padding: 10px 14px; font-size: 0.75rem; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: .06em; border-bottom: 1px solid var(--border); }
+  .skills-table td { padding: 11px 14px; border-bottom: 1px solid rgba(63,63,70,.4); vertical-align: top; }
+  .skills-table tr:last-child td { border-bottom: none; }
+  .skills-table tr:hover td { background: rgba(255,255,255,.02); }
+  code { font-family: monospace; background: var(--bg3); padding: 2px 7px; border-radius: 4px; font-size: .85em; }
+  .trigger { color: var(--brand-light); font-family: monospace; font-size: 0.82rem; }
+  .badge-new { background: rgba(225,29,72,.15); color: var(--brand-light); border: 1px solid rgba(225,29,72,.3); padding: 1px 7px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; }
+
+  /* Flow diagram */
+  .flow { display: flex; flex-direction: column; gap: 0; }
+  .flow-step { display: flex; align-items: flex-start; gap: 16px; position: relative; }
+  .flow-step:not(:last-child)::after { content: ''; position: absolute; left: 19px; top: 42px; width: 2px; height: calc(100% + 0px); background: var(--border); }
+  .flow-num { width: 38px; height: 38px; border-radius: 50%; background: var(--bg3); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; color: var(--text2); z-index: 1; }
+  .flow-num.active { background: var(--brand); border-color: var(--brand); color: #fff; }
+  .flow-body { padding: 6px 0 28px; }
+  .flow-title { font-weight: 600; margin-bottom: 4px; }
+  .flow-desc { font-size: 0.875rem; color: var(--text2); }
+  .flow-agents { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .flow-agent { background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; padding: 3px 10px; font-size: 0.8rem; font-family: monospace; }
+  .flow-agent.highlight { border-color: var(--testsprite); color: #fcd34d; }
+
+  /* Install */
+  .install-tabs { display: flex; gap: 4px; margin-bottom: -1px; }
+  .install-tab { padding: 8px 16px; font-size: 0.85rem; font-weight: 600; border-radius: 8px 8px 0 0; cursor: pointer; border: 1px solid var(--border); background: var(--bg3); color: var(--text2); }
+  .install-tab.active { background: var(--bg2); color: var(--text); border-bottom-color: var(--bg2); }
+  .install-panel { background: var(--bg2); border: 1px solid var(--border); border-radius: 0 8px 8px 8px; padding: 24px; display: none; }
+  .install-panel.active { display: block; }
+  pre { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; font-size: 0.875rem; line-height: 1.7; }
+  .step-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: var(--brand); border-radius: 50%; font-size: 0.75rem; font-weight: 700; color: #fff; margin-right: 6px; flex-shrink: 0; }
+  .install-step { display: flex; align-items: flex-start; gap: 0; margin-bottom: 20px; }
+  .install-step-body { flex: 1; }
+  .install-step-title { font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+
+  /* Testsprite section */
+  .ts-box { background: linear-gradient(135deg, #1c1609 0%, #18181b 100%); border: 1px solid rgba(245,158,11,.3); border-radius: 12px; padding: 28px; }
+  .ts-title { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .ts-title h3 { font-size: 1.2rem; color: #fcd34d; }
+  .ts-loop { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 20px 0; }
+  .ts-node { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 6px 14px; font-size: 0.85rem; font-family: monospace; }
+  .ts-node.active { background: rgba(245,158,11,.15); border-color: rgba(245,158,11,.4); color: #fcd34d; }
+  .ts-arrow { color: var(--text2); font-size: 1.1rem; }
+
+  /* Footer */
+  footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; color: var(--text2); font-size: 0.875rem; }
+
+  @media (max-width: 640px) {
+    .hero { padding: 48px 20px; }
+    section { padding: 48px 0; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <h1><span>Vengadores</span> Workflow</h1>
+  <p>Un equipo de agentes de IA especializados para Claude Code, coordinados por el orquestador y verificados en vivo con TestSprite.</p>
+  <div class="hero-btns">
+    <a href="https://github.com/hectorgvc/vengadores" class="btn btn-primary">
+      <i data-lucide="github" class="icon"></i> Ver en GitHub
+    </a>
+    <a href="#install" class="btn btn-secondary">
+      <i data-lucide="download" class="icon"></i> Instalación
+    </a>
+  </div>
+</div>
+
+<!-- AGENTES -->
+<section>
+  <div class="container">
+    <h2>El equipo <span class="sub">7 agentes especializados con modelos optimizados por tarea</span></h2>
+    <br>
+    <div class="grid grid-2">
+
+      <div class="agent-card">
+        <div class="agent-top">
+          <span class="agent-name">dev-senior</span>
+          <span class="badge badge-opus"><span class="badge-dot"></span> Opus</span>
+        </div>
+        <div class="agent-desc">Implementa features y repara bugs complejos. Arquitectura, razonamiento multi-paso, fixes difíciles.</div>
+      </div>
+
+      <div class="agent-card is-new">
+        <div class="agent-top">
+          <span class="agent-name">hawkeye</span>
+          <span class="badge badge-sonnet"><span class="badge-dot"></span> Sonnet</span>
+        </div>
+        <div class="agent-desc">Dev junior del equipo. Tareas acotadas con guía explícita, confirma antes de cada acción, activa junior-code-review automáticamente.</div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-top">
+          <span class="agent-name">qa-bug-hunter</span>
+          <span class="badge badge-sonnet"><span class="badge-dot"></span> Sonnet</span>
+        </div>
+        <div class="agent-desc">Caza bugs y los reporta de forma estructurada. No repara — informa al Dev.</div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-top">
+          <span class="agent-name">ui-ux-designer</span>
+          <span class="badge badge-sonnet"><span class="badge-dot"></span> Sonnet</span>
+        </div>
+        <div class="agent-desc">Interfaces HTML/CSS/JS. Siempre Lucide icons, nunca emojis. Mobile-first, accesible.</div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-top">
+          <span class="agent-name">security-analyst</span>
+          <span class="badge badge-opus"><span class="badge-dot"></span> Opus</span>
+        </div>
+        <div class="agent-desc">Audita y corrige vulnerabilidades: SQL injection, XSS, CSRF, IDOR, secretos expuestos.</div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-top">
+          <span class="agent-name">dba</span>
+          <span class="badge badge-sonnet"><span class="badge-dot"></span> Sonnet</span>
+        </div>
+        <div class="agent-desc">Migraciones SQL, cambios de esquema, índices y queries. Entrega archivos listos para aplicar.</div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-top">
+          <span class="agent-name">documentalista</span>
+          <span class="badge badge-haiku"><span class="badge-dot"></span> Haiku</span>
+        </div>
+        <div class="agent-desc">Registra cada misión en el vault de Obsidian: bitácora, decisiones ADR, bugs y pendientes.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FLUJO -->
+<section>
+  <div class="container">
+    <h2>Flujo de una misión <span class="sub">Orquestado por Nick Fury (la skill vengadores)</span></h2>
+    <br>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num active">1</div>
+        <div class="flow-body">
+          <div class="flow-title">Usuario activa la misión</div>
+          <div class="flow-desc">Escribe <code>/vengadores implementa el módulo de pagos</code> o describe la tarea.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-body">
+          <div class="flow-title">Nick Fury analiza y presenta el plan</div>
+          <div class="flow-desc">Selecciona solo los agentes necesarios, define el orden y los handoffs. Espera aprobación antes de ejecutar.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-body">
+          <div class="flow-title">Ejecución secuencial</div>
+          <div class="flow-desc">Cada agente hace su parte y pasa el resultado al siguiente. Patrón típico:</div>
+          <div class="flow-agents">
+            <span class="flow-agent">qa-bug-hunter</span>
+            <span class="ts-arrow">→</span>
+            <span class="flow-agent">dev-senior</span>
+            <span class="ts-arrow">→</span>
+            <span class="flow-agent">dba</span>
+            <span class="ts-arrow">→</span>
+            <span class="flow-agent">security-analyst</span>
+            <span class="ts-arrow">→</span>
+            <span class="flow-agent highlight">testsprite</span>
+            <span class="ts-arrow">→</span>
+            <span class="flow-agent">documentalista</span>
+          </div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-body">
+          <div class="flow-title">Cierre en el vault</div>
+          <div class="flow-desc">El documentalista actualiza la bitácora, ADRs, bugs y pendientes en Obsidian. Nick Fury reporta el resumen al usuario.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTSPRITE -->
+<section>
+  <div class="container">
+    <h2>TestSprite — verificación en vivo <span class="sub">Cierra el loop del agente con tests reales</span></h2>
+    <br>
+    <div class="ts-box">
+      <div class="ts-title">
+        <i data-lucide="shield-check" style="width:24px;height:24px;color:#fcd34d"></i>
+        <h3>El problema que resuelve</h3>
+      </div>
+      <p style="color:var(--text2);margin-bottom:16px">"Un loop sin verificador real no falla en voz alta — alucina progreso."<br>TestSprite corre tests reales contra tu app desplegada para confirmar que el código funciona.</p>
+
+      <div class="ts-loop">
+        <span class="ts-node">dev escribe</span>
+        <span class="ts-arrow">→</span>
+        <span class="ts-node active">testsprite verifica</span>
+        <span class="ts-arrow">→</span>
+        <span class="ts-node">falla → dev corrige</span>
+        <span class="ts-arrow">→</span>
+        <span class="ts-node active">testsprite verifica</span>
+        <span class="ts-arrow">→</span>
+        <span class="ts-node">pasa → documentalista</span>
+      </div>
+
+      <pre>npm install -g @testsprite/cli
+export TESTSPRITE_API_KEY=&lt;tu-clave&gt;   # testsprite.com → Settings → API Keys
+testsprite setup --from-env --agent claude
+
+# En cualquier misión con la app desplegada:
+/testsprite</pre>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section>
+  <div class="container">
+    <h2>Skills disponibles <span class="sub">15 skills listas para usar — activadas por palabras clave</span></h2>
+    <br>
+    <table class="skills-table">
+      <thead>
+        <tr>
+          <th>Skill</th>
+          <th>Trigger</th>
+          <th>Para qué</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>vengadores</code></td>
+          <td><span class="trigger">/vengadores</span></td>
+          <td>Orquestador — convoca al equipo Vengadores</td>
+        </tr>
+        <tr>
+          <td><code>team-onboarding</code></td>
+          <td><span class="trigger">"ejecuta el onboarding"</span></td>
+          <td>Genera tu perfil personal y CLAUDE-global.md en entrevista guiada</td>
+        </tr>
+        <tr>
+          <td><code>testsprite</code> <span class="badge-new">NUEVO</span></td>
+          <td><span class="trigger">/testsprite</span></td>
+          <td>Verifica código contra app desplegada en vivo (requiere URL pública)</td>
+        </tr>
+        <tr>
+          <td><code>brainstorming</code></td>
+          <td><span class="trigger">/brainstorming</span></td>
+          <td>De idea a diseño con método socrático — una pregunta a la vez</td>
+        </tr>
+        <tr>
+          <td><code>depuracion-sistematica</code></td>
+          <td><span class="trigger">/depuracion-sistematica</span></td>
+          <td>Causa raíz antes que parche — 4 fases de análisis</td>
+        </tr>
+        <tr>
+          <td><code>tdd</code></td>
+          <td><span class="trigger">/tdd</span></td>
+          <td>Red-Green-Refactor: el test primero, siempre</td>
+        </tr>
+        <tr>
+          <td><code>fase</code></td>
+          <td><span class="trigger">/fase</span></td>
+          <td>Recomienda modelo óptimo (Sonnet vs Opus) para la tarea actual</td>
+        </tr>
+        <tr>
+          <td><code>hilo</code></td>
+          <td><span class="trigger">/hilo</span></td>
+          <td>Evalúa si conviene cerrar esta conversación e iniciar una nueva</td>
+        </tr>
+        <tr>
+          <td><code>lucide</code></td>
+          <td><span class="trigger">/lucide</span></td>
+          <td>Referencia de iconos Lucide por tipo de negocio</td>
+        </tr>
+        <tr>
+          <td><code>auth-setup</code></td>
+          <td><span class="trigger">"necesito auth"</span></td>
+          <td>Configura autenticación (Clerk managed o JWT propio)</td>
+        </tr>
+        <tr>
+          <td><code>reporte-proyecto</code></td>
+          <td><span class="trigger">"reporte del proyecto X"</span></td>
+          <td>Genera reporte ejecutivo desde la bitácora del vault</td>
+        </tr>
+        <tr>
+          <td><code>junior-code-review</code></td>
+          <td><span class="trigger">"revisa mi código"</span></td>
+          <td>Review orientado a aprendizaje — bloqueantes, advertencias, sugerencias</td>
+        </tr>
+        <tr>
+          <td><code>headroom-learn</code></td>
+          <td><span class="trigger">"aprende de esta sesión"</span></td>
+          <td>Mina sesiones con IA y escribe aprendizajes al vault automáticamente</td>
+        </tr>
+        <tr>
+          <td><code>wiki-connect</code></td>
+          <td><span class="trigger">"conecta con la wiki"</span></td>
+          <td>Vincula conceptos técnicos entre proyectos con wikilinks de Obsidian</td>
+        </tr>
+        <tr>
+          <td><code>team-context</code></td>
+          <td><span style="color:var(--text2);font-size:.82rem">automática</span></td>
+          <td>Fundacional — carga CLAUDE-global.md al inicio de cada sesión</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- INSTALL -->
+<section id="install">
+  <div class="container">
+    <h2>Instalación <span class="sub">3 pasos en cualquier sistema operativo</span></h2>
+    <br>
+    <div class="install-tabs">
+      <div class="install-tab active" onclick="showTab('linux')">
+        <i data-lucide="terminal" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px"></i>
+        Linux / macOS
+      </div>
+      <div class="install-tab" onclick="showTab('windows')">
+        <i data-lucide="monitor" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px"></i>
+        Windows
+      </div>
+      <div class="install-tab" onclick="showTab('testsprite')">
+        <i data-lucide="shield-check" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px"></i>
+        TestSprite
+      </div>
+    </div>
+
+    <div id="tab-linux" class="install-panel active">
+      <div class="install-step">
+        <div>
+          <div class="install-step-title"><span class="step-num">1</span> Clonar e instalar</div>
+          <pre>git clone https://github.com/hectorgvc/vengadores.git
+cd vengadores
+chmod +x setup.sh
+./setup.sh</pre>
+        </div>
+      </div>
+      <div class="install-step">
+        <div>
+          <div class="install-step-title"><span class="step-num">2</span> Configurar tu perfil</div>
+          <p style="color:var(--text2);margin-bottom:8px">Abre Claude Code en cualquier directorio y ejecutá:</p>
+          <pre>Ejecuta la skill team-onboarding</pre>
+          <p style="color:var(--text2);font-size:.85rem;margin-top:8px">La skill te hace una entrevista corta y genera tu <code>CLAUDE-global.md</code> automáticamente.</p>
+        </div>
+      </div>
+      <div class="install-step">
+        <div>
+          <div class="install-step-title"><span class="step-num">3</span> Crear tu primer proyecto</div>
+          <pre>cd ~/ObsidianVault
+./nuevo-proyecto.sh "Nombre del Proyecto" /ruta/al/repo</pre>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-windows" class="install-panel">
+      <div class="install-step">
+        <div>
+          <div class="install-step-title"><span class="step-num">1</span> Clonar e instalar (PowerShell)</div>
+          <pre>git clone https://github.com/hectorgvc/vengadores.git
+cd vengadores
+.\setup.ps1</pre>
+          <p style="color:var(--text2);font-size:.85rem;margin-top:8px">El script usa <code>robocopy</code> en lugar de symlinks para máxima compatibilidad (no requiere modo desarrollador).</p>
+        </div>
+      </div>
+      <div class="install-step">
+        <div>
+          <div class="install-step-title"><span class="step-num">2</span> Configurar tu perfil</div>
+          <pre>Ejecuta la skill team-onboarding</pre>
+        </div>
+      </div>
+      <div class="install-step">
+        <div>
+          <div class="install-step-title"><span class="step-num">3</span> Nota sobre WSL2</div>
+          <p style="color:var(--text2);font-size:.85rem">Si usás WSL2, usá el <code>setup.sh</code> igual que en Linux. Los symlinks funcionan correctamente dentro del entorno WSL.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-testsprite" class="install-panel">
+      <div class="install-step">
+        <div>
+          <div class="install-step-title"><span class="step-num">1</span> Instalar la CLI</div>
+          <pre>npm install -g @testsprite/cli</pre>
+        </div>
+      </div>
+      <div class="install-step">
+        <div>
+          <div class="install-step-title"><span class="step-num">2</span> Configurar API key</div>
+          <p style="color:var(--text2);margin-bottom:8px">Obtené tu clave en <a href="https://testsprite.com">testsprite.com</a> → Settings → API Keys.</p>
+          <pre># Linux / macOS
+export TESTSPRITE_API_KEY=&lt;tu-clave&gt;
+
+# Windows (PowerShell)
+$env:TESTSPRITE_API_KEY = "&lt;tu-clave&gt;"</pre>
+        </div>
+      </div>
+      <div class="install-step">
+        <div>
+          <div class="install-step-title"><span class="step-num">3</span> Setup con Claude</div>
+          <pre>testsprite setup --from-env --agent claude</pre>
+          <p style="color:var(--text2);font-size:.85rem;margin-top:8px">La skill <code>testsprite</code> ya está instalada por el setup principal. Solo necesitás la CLI para que funcione.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VAULT STRUCTURE -->
+<section>
+  <div class="container">
+    <h2>Estructura resultante <span class="sub">Todo en su lugar — vault + agentes + skills</span></h2>
+    <br>
+    <div class="grid grid-2">
+      <div class="card">
+        <h3><i data-lucide="folder" style="width:16px;height:16px;display:inline;vertical-align:middle;margin-right:6px;color:var(--brand-light)"></i> ~/.claude/</h3>
+        <pre style="margin-top:8px;font-size:0.8rem">~/.claude/
+├── CLAUDE.md          ← importa CLAUDE-global.md
+├── agents/
+│   ├── dev-senior.md
+│   ├── hawkeye.md     ← nuevo
+│   ├── ui-ux-designer.md
+│   ├── qa-bug-hunter.md
+│   ├── security-analyst.md
+│   ├── dba.md
+│   └── documentalista.md
+└── skills/            ← symlinks al vault</pre>
+      </div>
+      <div class="card">
+        <h3><i data-lucide="database" style="width:16px;height:16px;display:inline;vertical-align:middle;margin-right:6px;color:var(--brand-light)"></i> ~/ObsidianVault/</h3>
+        <pre style="margin-top:8px;font-size:0.8rem">~/ObsidianVault/
+├── 00-Reglas-Globales/
+│   ├── CLAUDE-global.md
+│   └── mi-perfil.md
+├── 01-Proyectos/      ← vacío al inicio
+├── 02-Plantillas/
+├── 03-Skills/         ← 15 skills
+├── 04-Wiki/
+├── nuevo-proyecto.sh
+└── usar-skill.sh</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>Vengadores Workflow — construido con Claude Code y Obsidian</p>
+    <p style="margin-top:4px"><a href="https://github.com/hectorgvc/vengadores">github.com/hectorgvc/vengadores</a></p>
+  </div>
+</footer>
+
+<script>
+  lucide.createIcons();
+
+  function showTab(id) {
+    document.querySelectorAll('.install-tab').forEach((t, i) => {
+      const ids = ['linux', 'windows', 'testsprite'];
+      t.classList.toggle('active', ids[i] === id);
+    });
+    document.querySelectorAll('.install-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+  }
+</script>
+</body>
+</html>
