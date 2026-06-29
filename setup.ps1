@@ -156,7 +156,7 @@ if (Get-Command testsprite -ErrorAction SilentlyContinue) {
     Write-OK "testsprite ya instalado"
 } else {
     Write-Warn "TestSprite no instalado. Para instalarlo:"
-    Write-Warn "  npm install -g @testsprite/cli"
+    Write-Warn "  npm install -g @testsprite/testsprite-cli"
     Write-Warn "  `$env:TESTSPRITE_API_KEY='<tu-clave>'"
     Write-Warn "  testsprite setup --from-env --agent claude"
 }

@@ -34,7 +34,7 @@ testsprite --version 2>/dev/null || echo "FALTA: npm install -g @testsprite/cli"
 
 Si falta la CLI, instalarla:
 ```bash
-npm install -g @testsprite/cli
+npm install -g @testsprite/testsprite-cli
 testsprite setup --from-env --agent claude
 ```
 

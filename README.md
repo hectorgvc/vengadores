@@ -87,7 +87,7 @@ TestSprite cierra el loop del agente: en vez de "creer" que el código funciona,
 corre tests reales contra tu app desplegada.
 
 ```bash
-npm install -g @testsprite/cli
+npm install -g @testsprite/testsprite-cli
 export TESTSPRITE_API_KEY=<tu-clave>   # testsprite.com → Settings → API Keys
 testsprite setup --from-env --agent claude
 ```
