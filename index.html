@@ -156,7 +156,7 @@
           <span class="agent-name">dev-senior</span>
           <span class="badge badge-opus"><span class="badge-dot"></span> Opus</span>
         </div>
-        <div class="agent-desc">Implementa features y repara bugs complejos. Arquitectura, razonamiento multi-paso, fixes difíciles.</div>
+        <div class="agent-desc">Implementa features y repara bugs con calidad de producción. Para bugs difíciles: 6 fases de diagnóstico (feedback loop primero, hipótesis, instrumentación). TDD: vertical slices, tests de comportamiento, anti-tautológicos.</div>
       </div>
 
       <div class="agent-card is-new">
@@ -299,7 +299,7 @@ testsprite setup --from-env --agent claude
 <!-- SKILLS -->
 <section>
   <div class="container">
-    <h2>Skills disponibles <span class="sub">15 skills core + 6 skills GeneXus opcionales — activadas por palabras clave</span></h2>
+    <h2>Skills disponibles <span class="sub">16 skills core + 6 skills GeneXus opcionales — activadas por palabras clave</span></h2>
     <br>
     <table class="skills-table">
       <thead>
@@ -379,6 +379,11 @@ testsprite setup --from-env --agent claude
           <td><code>wiki-connect</code></td>
           <td><span class="trigger">"conecta con la wiki"</span></td>
           <td>Vincula conceptos técnicos entre proyectos con wikilinks de Obsidian</td>
+        </tr>
+        <tr>
+          <td><code>changelog-generator</code> <span class="badge-new">NUEVO</span></td>
+          <td><span class="trigger">/changelog-generator</span> · "release notes"</td>
+          <td>Genera changelog user-facing desde git: commits técnicos → notas de versión por categoría</td>
         </tr>
         <tr>
           <td><code>team-context</code></td>

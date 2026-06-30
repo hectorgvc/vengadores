@@ -195,8 +195,58 @@ if ($gxConfirm -match "^[Ss]$") {
     Write-Warn "  Luego volver a ejecutar: .\setup.ps1"
 }
 
-# ── 9. TestSprite CLI ────────────────────────────────────
-Write-Host "`n  > 9 TestSprite CLI" -ForegroundColor Green
+# ── 9. Git Guardrails (opcional) ────────────────────────
+Write-Host "`n  > 9 Git Guardrails (hook de seguridad)" -ForegroundColor Green
+
+Write-Host "  Bloquea: git push, reset --hard, clean -f, branch -D, checkout ."
+Write-Host ""
+$ggConfirm = Read-Host "  Instalar git guardrails? [s/N]"
+
+if ($ggConfirm -match "^[Ss]$") {
+    $HooksDir = "$ClaudeDir\hooks"
+    if (-not (Test-Path $HooksDir)) { New-Item -ItemType Directory -Path $HooksDir -Force | Out-Null }
+
+    # En Windows adaptamos el script a una versión PowerShell
+    $hookScript = @'
+#!/usr/bin/env bash
+INPUT=$(cat)
+COMMAND=$(echo "$INPUT" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('tool_input',{}).get('command',''))" 2>/dev/null || echo "")
+DANGEROUS_PATTERNS=("git push" "push --force" "git reset --hard" "reset --hard" "git clean -fd" "git clean -f" "git branch -D" "git checkout \." "git restore \.")
+for pattern in "${DANGEROUS_PATTERNS[@]}"; do
+  if echo "$COMMAND" | grep -qE "$pattern"; then
+    echo "BLOCKED: operacion git destructiva bloqueada. Confirma con el usuario." >&2
+    exit 2
+  fi
+done
+exit 0
+'@
+    $hookScript | Set-Content "$HooksDir\block-dangerous-git.sh" -Encoding UTF8
+
+    $SettingsFile = "$ClaudeDir\settings.json"
+    $settings = if (Test-Path $SettingsFile) { Get-Content $SettingsFile -Raw | ConvertFrom-Json } else { [PSCustomObject]@{} }
+    if (-not $settings.PSObject.Properties['hooks']) { $settings | Add-Member -NotePropertyName 'hooks' -NotePropertyValue ([PSCustomObject]@{}) }
+    if (-not $settings.hooks.PSObject.Properties['PreToolUse']) {
+        $settings.hooks | Add-Member -NotePropertyName 'PreToolUse' -NotePropertyValue @()
+    }
+    $hookEntry = [PSCustomObject]@{
+        matcher = "Bash"
+        hooks = @([PSCustomObject]@{ type = "command"; command = "~/.claude/hooks/block-dangerous-git.sh" })
+    }
+    $existing = $settings.hooks.PreToolUse | Where-Object { ($_ | ConvertTo-Json) -match "block-dangerous-git" }
+    if (-not $existing) {
+        $settings.hooks.PreToolUse += $hookEntry
+        $settings | ConvertTo-Json -Depth 10 | Set-Content $SettingsFile -Encoding UTF8
+        Write-OK "Hook registrado en settings.json"
+    } else {
+        Write-Skip "hook ya registrado"
+    }
+    Write-OK "Git guardrails instalados"
+} else {
+    Write-Warn "Git guardrails omitidos. Para instalarlos luego: ejecuta .\setup.ps1 de nuevo."
+}
+
+# ── 10. TestSprite CLI ────────────────────────────────────
+Write-Host "`n  > 10 TestSprite CLI" -ForegroundColor Green
 
 if (Get-Command testsprite -ErrorAction SilentlyContinue) {
     Write-OK "testsprite ya instalado"
@@ -207,8 +257,8 @@ if (Get-Command testsprite -ErrorAction SilentlyContinue) {
     Write-Warn "  testsprite setup --from-env --agent claude"
 }
 
-# ── 9. Git del vault ─────────────────────────────────────
-Write-Host "`n  > 10 Git del vault" -ForegroundColor Green
+# ── 11. Git del vault ─────────────────────────────────────
+Write-Host "`n  > 11 Git del vault" -ForegroundColor Green
 
 if (Get-Command git -ErrorAction SilentlyContinue) {
     if (-not (Test-Path "$Vault\.git")) {

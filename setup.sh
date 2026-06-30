@@ -246,8 +246,51 @@ else
   info "  Luego volver a ejecutar: ./setup.sh"
 fi
 
-# ── 10. TestSprite CLI (opcional) ─────────────────────────
-section "10 · TestSprite CLI (verificación en vivo)"
+# ── 10. Git guardrails (opcional) ─────────────────────────
+section "10 · Git Guardrails (hook de seguridad)"
+
+echo "  Bloquea comandos git destructivos antes de que Claude los ejecute:"
+echo "  git push, reset --hard, clean -f, branch -D, checkout ."
+echo ""
+read -rp "  ¿Instalar git guardrails? [s/N] " GG_CONFIRM
+GG_CONFIRM="${GG_CONFIRM:-N}"
+
+if [[ "$GG_CONFIRM" =~ ^[Ss]$ ]]; then
+  HOOKS_DIR="$CLAUDE_DIR/hooks"
+  mkdir -p "$HOOKS_DIR"
+  cp "$REPO_DIR/hooks/block-dangerous-git.sh" "$HOOKS_DIR/block-dangerous-git.sh"
+  chmod +x "$HOOKS_DIR/block-dangerous-git.sh"
+
+  SETTINGS_FILE="$CLAUDE_DIR/settings.json"
+  python3 - <<PYEOF
+import json, os
+path = "$SETTINGS_FILE"
+settings = {}
+if os.path.exists(path):
+    with open(path) as f:
+        settings = json.load(f)
+
+hook_entry = {
+    "matcher": "Bash",
+    "hooks": [{"type": "command", "command": "~/.claude/hooks/block-dangerous-git.sh"}]
+}
+hooks = settings.setdefault("hooks", {})
+pre = hooks.setdefault("PreToolUse", [])
+if not any("block-dangerous-git" in str(h) for h in pre):
+    pre.append(hook_entry)
+    with open(path, "w") as f:
+        json.dump(settings, f, indent=2)
+    print("Hook registrado en settings.json")
+else:
+    print("Hook ya estaba registrado")
+PYEOF
+  info "Git guardrails instalados"
+else
+  info "Git guardrails omitidos. Para instalarlos luego: ejecutá ./setup.sh de nuevo."
+fi
+
+# ── 11. TestSprite CLI (opcional) ─────────────────────────
+section "11 · TestSprite CLI (verificación en vivo)"
 
 if command -v testsprite &>/dev/null; then
   info "testsprite ya instalado: $(testsprite --version 2>/dev/null || echo 'ok')"
@@ -259,8 +302,8 @@ else
   warn "La skill 'testsprite' quedará disponible pero inactiva hasta instalar la CLI."
 fi
 
-# ── 10. Git del vault ──────────────────────────────────────
-section "11 · Git del vault"
+# ── 12. Git del vault ──────────────────────────────────────
+section "12 · Git del vault"
 
 if [ ! -d "$VAULT/.git" ]; then
   git -C "$VAULT" init -q
