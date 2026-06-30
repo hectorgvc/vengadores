@@ -205,8 +205,49 @@ for skill_dir in "$VAULT/03-Skills/"*/; do
     info "Symlink global: $skill_name" || skip "symlink $skill_name"
 done
 
-# ── 9. TestSprite CLI (opcional) ──────────────────────────
-section "9 · TestSprite CLI (verificación en vivo)"
+# ── 9. Skills GeneXus (opcional) ──────────────────────────
+section "9 · Skills GeneXus (opcional)"
+
+GX_DIR="$REPO_DIR/skills-extra/genexus-skills"
+echo "  Skills GeneXus incluye: nexa, gx-erp-connector, ui-creator,"
+echo "  chameleon-controls-library, design-system-builder, mercury-design-system"
+echo ""
+read -rp "  ¿Instalar skills de GeneXus? [s/N] " GX_CONFIRM
+GX_CONFIRM="${GX_CONFIRM:-N}"
+
+if [[ "$GX_CONFIRM" =~ ^[Ss]$ ]]; then
+  # Inicializar submodule si no está descargado
+  if [ ! -f "$GX_DIR/README.md" ]; then
+    info "Descargando genexus-skills (submodule)..."
+    git -C "$REPO_DIR" submodule update --init skills-extra/genexus-skills
+  fi
+
+  # Symlinks para skills planas (nexa, gx-erp-connector)
+  for skill_dir in "$GX_DIR"/*/; do
+    [ -f "$skill_dir/SKILL.md" ] || continue
+    skill_name="$(basename "$skill_dir")"
+    DEST="$CLAUDE_SKILLS/$skill_name"
+    [ ! -e "$DEST" ] && ln -s "$skill_dir" "$DEST" && \
+      info "Symlink GeneXus: $skill_name" || skip "symlink $skill_name"
+  done
+
+  # Symlinks para skills dentro de frontend/
+  for skill_dir in "$GX_DIR/frontend/"/*/; do
+    [ -f "$skill_dir/SKILL.md" ] || continue
+    skill_name="$(basename "$skill_dir")"
+    DEST="$CLAUDE_SKILLS/$skill_name"
+    [ ! -e "$DEST" ] && ln -s "$skill_dir" "$DEST" && \
+      info "Symlink GeneXus: $skill_name" || skip "symlink $skill_name"
+  done
+  info "Skills GeneXus instaladas. Se activan manualmente: /nexa, /ui-creator, etc."
+else
+  info "Skills GeneXus omitidas. Para instalarlas luego:"
+  info "  git submodule update --init skills-extra/genexus-skills"
+  info "  Luego volver a ejecutar: ./setup.sh"
+fi
+
+# ── 10. TestSprite CLI (opcional) ─────────────────────────
+section "10 · TestSprite CLI (verificación en vivo)"
 
 if command -v testsprite &>/dev/null; then
   info "testsprite ya instalado: $(testsprite --version 2>/dev/null || echo 'ok')"
@@ -219,7 +260,7 @@ else
 fi
 
 # ── 10. Git del vault ──────────────────────────────────────
-section "10 · Git del vault"
+section "11 · Git del vault"
 
 if [ ! -d "$VAULT/.git" ]; then
   git -C "$VAULT" init -q

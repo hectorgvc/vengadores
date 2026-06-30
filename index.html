@@ -299,7 +299,7 @@ testsprite setup --from-env --agent claude
 <!-- SKILLS -->
 <section>
   <div class="container">
-    <h2>Skills disponibles <span class="sub">15 skills listas para usar — activadas por palabras clave</span></h2>
+    <h2>Skills disponibles <span class="sub">15 skills core + 6 skills GeneXus opcionales — activadas por palabras clave</span></h2>
     <br>
     <table class="skills-table">
       <thead>
@@ -384,6 +384,47 @@ testsprite setup --from-env --agent claude
           <td><code>team-context</code></td>
           <td><span style="color:var(--text2);font-size:.82rem">automática</span></td>
           <td>Fundacional — carga CLAUDE-global.md al inicio de cada sesión</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:2rem;color:var(--text2);font-size:.95rem;display:flex;align-items:center;gap:.5rem">
+      <i data-lucide="package" style="width:16px;height:16px;color:var(--brand-light)"></i>
+      Skills GeneXus <span style="font-size:.8rem;color:var(--text2);font-weight:400">— opcionales · instalación manual via submodule</span>
+    </h3>
+    <p style="font-size:.82rem;color:var(--text2);margin:.4rem 0 .8rem">Requieren plataforma GeneXus. Instaladas preguntando <code>¿instalar GeneXus skills?</code> durante el setup, o manualmente: <code>git submodule update --init skills-extra/genexus-skills</code></p>
+    <table>
+      <thead><tr><th>Skill</th><th>Trigger</th><th>Para</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><code>nexa</code></td>
+          <td><span class="trigger">/nexa</span> · "Transaction", "Knowledge Base"</td>
+          <td>Experto GeneXus — modela objetos, genera código GX, buenas prácticas</td>
+        </tr>
+        <tr>
+          <td><code>gx-erp-connector</code></td>
+          <td><span class="trigger">/gx-erp-connector</span> · "conectar SAP", "BAPI"</td>
+          <td>Conecta GeneXus con SAP ERP — genera ExternalObjects y SDTs desde RFC/BAPI</td>
+        </tr>
+        <tr>
+          <td><code>ui-creator</code></td>
+          <td><span class="trigger">/ui-creator</span> · "convierte UI", "imagen a componente"</td>
+          <td>Convierte imágenes y specs OpenAPI en componentes Angular/React con screenshot validation</td>
+        </tr>
+        <tr>
+          <td><code>chameleon-controls-library</code></td>
+          <td><span class="trigger">/chameleon-controls-library</span> · "componente ch-*"</td>
+          <td>Construye UIs con los 58 web components Chameleon de GeneXus</td>
+        </tr>
+        <tr>
+          <td><code>design-system-builder</code></td>
+          <td><span class="trigger">/design-system-builder</span> · "design system", "DS"</td>
+          <td>Crea y evoluciona Design Systems CSS enterprise sobre Chameleon</td>
+        </tr>
+        <tr>
+          <td><code>mercury-design-system</code></td>
+          <td><span class="trigger">/mercury-design-system</span> · "Mercury", "Globant theme"</td>
+          <td>Aplica el Mercury Design System (Globant) a UIs construidas con Chameleon</td>
         </tr>
       </tbody>
     </table>

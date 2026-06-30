@@ -149,8 +149,54 @@ Get-ChildItem "$Vault\03-Skills" -Directory | Where-Object { Test-Path "$($_.Ful
     }
 }
 
-# ── 8. TestSprite CLI ────────────────────────────────────
-Write-Host "`n  > 8 TestSprite CLI" -ForegroundColor Green
+# ── 8. Skills GeneXus (opcional) ────────────────────────
+Write-Host "`n  > 8 Skills GeneXus (opcional)" -ForegroundColor Green
+
+$GxDir = "$RepoDir\skills-extra\genexus-skills"
+Write-Host "  Skills: nexa, gx-erp-connector, ui-creator, chameleon-controls-library,"
+Write-Host "          design-system-builder, mercury-design-system"
+Write-Host ""
+$gxConfirm = Read-Host "  Instalar skills de GeneXus? [s/N]"
+
+if ($gxConfirm -match "^[Ss]$") {
+    # Inicializar submodule si no está descargado
+    if (-not (Test-Path "$GxDir\README.md")) {
+        Write-OK "Descargando genexus-skills (submodule)..."
+        git -C $RepoDir submodule update --init skills-extra/genexus-skills
+    }
+
+    # Skills planas (nexa, gx-erp-connector)
+    Get-ChildItem $GxDir -Directory | Where-Object { Test-Path "$($_.FullName)\SKILL.md" } | ForEach-Object {
+        $dest = "$ClaudeSkills\$($_.Name)"
+        if (-not (Test-Path $dest)) {
+            robocopy $_.FullName $dest /E /NJH /NJS /NP | Out-Null
+            Write-OK "Skill GeneXus: $($_.Name)"
+        } else {
+            Write-Skip "skill $($_.Name)"
+        }
+    }
+
+    # Skills dentro de frontend/
+    if (Test-Path "$GxDir\frontend") {
+        Get-ChildItem "$GxDir\frontend" -Directory | Where-Object { Test-Path "$($_.FullName)\SKILL.md" } | ForEach-Object {
+            $dest = "$ClaudeSkills\$($_.Name)"
+            if (-not (Test-Path $dest)) {
+                robocopy $_.FullName $dest /E /NJH /NJS /NP | Out-Null
+                Write-OK "Skill GeneXus: $($_.Name)"
+            } else {
+                Write-Skip "skill $($_.Name)"
+            }
+        }
+    }
+    Write-OK "Skills GeneXus instaladas. Activar manualmente: /nexa, /ui-creator, etc."
+} else {
+    Write-Warn "Skills GeneXus omitidas. Para instalarlas luego:"
+    Write-Warn "  git submodule update --init skills-extra/genexus-skills"
+    Write-Warn "  Luego volver a ejecutar: .\setup.ps1"
+}
+
+# ── 9. TestSprite CLI ────────────────────────────────────
+Write-Host "`n  > 9 TestSprite CLI" -ForegroundColor Green
 
 if (Get-Command testsprite -ErrorAction SilentlyContinue) {
     Write-OK "testsprite ya instalado"
@@ -162,7 +208,7 @@ if (Get-Command testsprite -ErrorAction SilentlyContinue) {
 }
 
 # ── 9. Git del vault ─────────────────────────────────────
-Write-Host "`n  > 9 Git del vault" -ForegroundColor Green
+Write-Host "`n  > 10 Git del vault" -ForegroundColor Green
 
 if (Get-Command git -ErrorAction SilentlyContinue) {
     if (-not (Test-Path "$Vault\.git")) {
