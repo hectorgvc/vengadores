@@ -147,7 +147,7 @@
 <!-- AGENTES -->
 <section>
   <div class="container">
-    <h2>El equipo <span class="sub">9 agentes especializados con modelos optimizados por tarea</span></h2>
+    <h2>El equipo <span class="sub">10 agentes especializados con modelos optimizados por tarea</span></h2>
     <br>
     <div class="grid grid-2">
 
@@ -213,6 +213,14 @@
           <span class="badge badge-opus"><span class="badge-dot"></span> Opus</span>
         </div>
         <div class="agent-desc">Genera estructura y código de reportes financieros: conciliación bancaria, P&L, balance general, flujo de caja, IT-1/IT-2/606/607 DGII. Base NIIF + particularidades RD (ITBIS 18%, ISR 27%). Siempre marca ⚠ revisión contable requerida.</div>
+      </div>
+
+      <div class="agent-card is-new">
+        <div class="agent-top">
+          <span class="agent-name">devops</span>
+          <span class="badge badge-sonnet"><span class="badge-dot"></span> Sonnet</span>
+        </div>
+        <div class="agent-desc">Docker Compose, nginx/PHP-FPM, GitHub Actions CI/CD, scripts de servidor, hardening básico. Stack objetivo: Laravel + PHP-FPM + PostgreSQL + Redis. Deploy vía git pull con zero-downtime y health check.</div>
       </div>
 
       <div class="agent-card">
@@ -315,7 +323,7 @@ testsprite setup --from-env --agent claude
 <!-- SKILLS -->
 <section>
   <div class="container">
-    <h2>Skills disponibles <span class="sub">16 skills core + 6 skills GeneXus opcionales — activadas por palabras clave</span></h2>
+    <h2>Skills disponibles <span class="sub">17 skills core + 6 skills GeneXus opcionales — activadas por palabras clave</span></h2>
     <br>
     <table class="skills-table">
       <thead>
@@ -395,6 +403,11 @@ testsprite setup --from-env --agent claude
           <td><code>wiki-connect</code></td>
           <td><span class="trigger">"conecta con la wiki"</span></td>
           <td>Vincula conceptos técnicos entre proyectos con wikilinks de Obsidian</td>
+        </tr>
+        <tr>
+          <td><code>laravel-specialist</code> <span class="badge-new">NUEVO</span></td>
+          <td><span class="trigger">/laravel</span> · "laravel", "eloquent", "artisan"</td>
+          <td>Especialista Laravel 12 + PHP 8.3: Eloquent, migrations, API Resources, Sanctum, jobs, Pest. Templates listos y checkpoints de validación.</td>
         </tr>
         <tr>
           <td><code>changelog-generator</code> <span class="badge-new">NUEVO</span></td>
