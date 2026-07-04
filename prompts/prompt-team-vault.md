@@ -81,7 +81,7 @@ Crea esta estructura:
     │   └── Plantilla-Skill.md
     ├── 03-Skills/
     │   ├── README.md
-    │   ├── team-onboarding/
+    │   ├── jarvis/
     │   │   └── SKILL.md
     │   ├── team-context/
     │   │   └── SKILL.md
@@ -106,7 +106,7 @@ se regenera.
 
 ```markdown
 # Mi Perfil — {{nombre}}
-_Generado por team-onboarding. Editar este archivo y pedir
+_Generado por jarvis. Editar este archivo y pedir
 "actualiza mi CLAUDE-global.md" para regenerar las reglas._
 
 ## Identidad
@@ -284,7 +284,7 @@ depends_on:
 
 ## PASO 5 — Skills del vault
 
-### 03-Skills/team-onboarding/SKILL.md
+### 03-Skills/jarvis/SKILL.md
 ```markdown
 ---
 description: >
@@ -386,7 +386,7 @@ depends_on:
 
 | Skill | Descripción | Depende de | Estado |
 |-------|-------------|------------|--------|
-| team-onboarding | Entrevista de perfil — genera mi-perfil.md y CLAUDE-global.md | — | ✅ |
+| jarvis | Entrevista de perfil — genera mi-perfil.md y CLAUDE-global.md | — | ✅ |
 | team-context | Fundacional — todas las demás la leen | — | ✅ |
 | reporte-proyecto | Genera 05-Reporte-Final.md desde la bitácora | team-context | ✅ |
 
@@ -548,7 +548,7 @@ Instala las skills base como globales:
 cd ~/ObsidianVault
 ./usar-skill.sh team-context --global
 ./usar-skill.sh reporte-proyecto --global
-./usar-skill.sh team-onboarding --global
+./usar-skill.sh jarvis --global
 ```
 
 ---

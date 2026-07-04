@@ -17,7 +17,7 @@ El script crea el vault, instala los agentes, las skills y conecta Claude Code.
 Luego abre Claude Code y ejecutá:
 
 ```
-Ejecuta la skill team-onboarding
+Ejecuta la skill jarvis
 ```
 
 Eso configura tu perfil personal y genera `CLAUDE-global.md` automáticamente.
@@ -43,7 +43,7 @@ Eso configura tu perfil personal y genera `CLAUDE-global.md` automáticamente.
 | Skill | Trigger | Para qué |
 |-------|---------|----------|
 | `vengadores` | `/vengadores` | Orquestador — convoca al equipo |
-| `team-onboarding` | "ejecuta el onboarding" | Genera tu perfil y CLAUDE-global.md |
+| `jarvis` | "ejecuta el onboarding" | Genera tu perfil y CLAUDE-global.md |
 | `team-context` | automática | Fundacional — carga CLAUDE-global.md |
 | `testsprite` | `/testsprite` | Verifica código contra app desplegada en vivo |
 | `brainstorming` | `/brainstorming` | De idea a diseño con método socrático |
@@ -125,7 +125,7 @@ cd ~/ObsidianVault
 
 ~/ObsidianVault/
 ├── 00-Reglas-Globales/
-│   ├── CLAUDE-global.md   ← generado por team-onboarding
+│   ├── CLAUDE-global.md   ← generado por jarvis
 │   └── mi-perfil.md
 ├── 01-Proyectos/          ← un folder por proyecto (vacío al inicio)
 ├── 02-Plantillas/

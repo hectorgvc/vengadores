@@ -111,7 +111,7 @@ if [ ! -f "$SKILLS_README" ]; then
 | Skill | Descripción | Depende de | Estado |
 |-------|-------------|------------|--------|
 | vengadores | Orquestador del equipo | — | ✅ |
-| team-onboarding | Entrevista de perfil — genera mi-perfil.md y CLAUDE-global.md | — | ✅ |
+| jarvis | Entrevista de perfil — genera mi-perfil.md y CLAUDE-global.md | — | ✅ |
 | team-context | Fundacional — todas las demás la leen | — | ✅ |
 | reporte-proyecto | Genera reporte final desde la bitácora | team-context | ✅ |
 | junior-code-review | Revisión orientada a aprendizaje | team-context | ✅ |
@@ -327,7 +327,7 @@ echo "  Agentes   : $CLAUDE_AGENTS"
 echo "  Skills    : $CLAUDE_SKILLS"
 echo ""
 echo "  Siguiente paso — abre Claude Code y ejecuta:"
-echo "  'Ejecuta la skill team-onboarding'"
+echo "  'Ejecuta la skill jarvis'"
 echo ""
 echo "  Esto configura tu perfil personal (CLAUDE-global.md)."
 echo ""
