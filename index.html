@@ -172,7 +172,7 @@
           <span class="agent-name">qa-bug-hunter</span>
           <span class="badge badge-sonnet"><span class="badge-dot"></span> Sonnet</span>
         </div>
-        <div class="agent-desc">Caza bugs y los reporta de forma estructurada. No repara — informa al Dev.</div>
+        <div class="agent-desc">Caza bugs con herramientas de solo lectura (sin Bash) — no ejecuta, no repara, no decide. Alcance acotado al diff de la misión, reproducción descrita en texto, y escala a Nick Fury en vez de actuar.</div>
       </div>
 
       <div class="agent-card">
@@ -228,7 +228,7 @@
           <span class="agent-name">documentalista</span>
           <span class="badge badge-haiku"><span class="badge-dot"></span> Haiku</span>
         </div>
-        <div class="agent-desc">Registra cada misión en el vault de Obsidian: bitácora, decisiones ADR, bugs y pendientes.</div>
+        <div class="agent-desc">Registra cada misión en el vault de Obsidian: bitácora, decisiones ADR, bugs y pendientes. Fundamenta en evidencia real (git log/diff), hace updates quirúrgicos con presupuesto de cambio, y evita duplicar: un concepto, un hogar canónico.</div>
       </div>
 
     </div>
@@ -481,7 +481,11 @@ testsprite setup --from-env --agent claude
     <h2>Instalación <span class="sub">3 pasos en cualquier sistema operativo</span></h2>
     <br>
     <div class="install-tabs">
-      <div class="install-tab active" onclick="showTab('linux')">
+      <div class="install-tab active" onclick="showTab('prompt')">
+        <i data-lucide="sparkles" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px"></i>
+        Prompt (recomendado)
+      </div>
+      <div class="install-tab" onclick="showTab('linux')">
         <i data-lucide="terminal" style="width:14px;height:14px;display:inline;vertical-align:middle;margin-right:4px"></i>
         Linux / macOS
       </div>
@@ -495,7 +499,52 @@ testsprite setup --from-env --agent claude
       </div>
     </div>
 
-    <div id="tab-linux" class="install-panel active">
+    <div id="tab-prompt" class="install-panel active">
+      <div class="install-step">
+        <div class="install-step-body">
+          <div class="install-step-title"><span class="step-num">1</span> Copiá este prompt y pegalo en Claude Code</div>
+          <p style="color:var(--text2);margin-bottom:8px">Abrí Claude Code en cualquier carpeta y pegalo tal cual, sin editar nada. La IA clona el repo, corre el setup y te hace el onboarding — vos no tocás la terminal.</p>
+          <div style="position:relative">
+            <pre id="install-prompt-text" style="padding-right:96px;white-space:pre-wrap">Quiero instalar el sistema Vengadores (agentes + skills de Claude Code) en esta máquina. Encargate vos de todo el proceso — yo no voy a tocar la terminal, así que usá tus herramientas y contame qué vas haciendo en cada paso.
+
+Antes de instalar nada, preguntame en el chat (sí/no):
+1. ¿Instalo las skills de GeneXus? (solo si trabajás con esa plataforma, ~9MB extra)
+2. ¿Instalo los git guardrails? (bloquean comandos destructivos como push --force o reset --hard antes de ejecutarlos)
+
+Con mis respuestas, hacé esto:
+
+1. Verificá que git esté instalado (git --version). Si falta, explicame cómo instalarlo y parate ahí.
+2. Cloná el repo en ~/vengadores (si la carpeta ya existe, hacé git -C ~/vengadores pull en vez de clonar de nuevo):
+   git clone https://github.com/hectorgvc/vengadores.git ~/vengadores
+3. Detectá mi sistema operativo y corré el setup sin pedirme que lo haga yo a mano, pasándole mis respuestas por stdin en este orden (confirmar instalación, GeneXus, guardrails):
+   - Linux/macOS/WSL2: chmod +x setup.sh && printf 'S\n&lt;respuesta-genexus&gt;\n&lt;respuesta-guardrails&gt;\n' | ./setup.sh
+   - Windows (PowerShell): "S`n&lt;respuesta-genexus&gt;`n&lt;respuesta-guardrails&gt;" | .\setup.ps1
+4. Cuando termine, leeme el resumen que imprime el script (vault, agentes, skills instaladas).
+5. Ejecutá vos mismo la skill jarvis ahora mismo para hacerme la entrevista de onboarding y generar mi CLAUDE-global.md — no esperes a que te lo pida.
+6. Cerrá con un resumen corto: dónde quedó el vault, cuántos agentes y skills quedaron activos, y cuál es el próximo paso (crear mi primer proyecto con ./nuevo-proyecto.sh "Nombre" /ruta/al/repo).
+
+Si algo falla (falta git, sin permisos, sin internet), explicámelo en español simple y decime exactamente qué tengo que resolver antes de reintentar.</pre>
+            <button class="btn btn-secondary" style="position:absolute;top:12px;right:12px;padding:6px 12px;font-size:.8rem" onclick="copyInstallPrompt(this)">
+              <i data-lucide="copy" class="icon" style="width:14px;height:14px"></i> Copiar
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="install-step">
+        <div class="install-step-body">
+          <div class="install-step-title"><span class="step-num">2</span> Respondé dos preguntas rápidas</div>
+          <p style="color:var(--text2)">La IA te pregunta en el chat si querés las skills de GeneXus y los git guardrails antes de instalar nada. El resto — clonar, correr el setup, verificar — lo resuelve sola.</p>
+        </div>
+      </div>
+      <div class="install-step">
+        <div class="install-step-body">
+          <div class="install-step-title"><span class="step-num">3</span> Listo</div>
+          <p style="color:var(--text2)">Al terminar ya tenés el vault, los agentes, las skills, y tu perfil (<code>CLAUDE-global.md</code>) generado por la entrevista de <code>jarvis</code> — sin haber escrito un comando. ¿Preferís hacerlo a mano? Mirá las pestañas Linux/macOS o Windows.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-linux" class="install-panel">
       <div class="install-step">
         <div>
           <div class="install-step-title"><span class="step-num">1</span> Clonar e instalar</div>
@@ -625,11 +674,21 @@ $env:TESTSPRITE_API_KEY = "&lt;tu-clave&gt;"</pre>
 
   function showTab(id) {
     document.querySelectorAll('.install-tab').forEach((t, i) => {
-      const ids = ['linux', 'windows', 'testsprite'];
+      const ids = ['prompt', 'linux', 'windows', 'testsprite'];
       t.classList.toggle('active', ids[i] === id);
     });
     document.querySelectorAll('.install-panel').forEach(p => p.classList.remove('active'));
     document.getElementById('tab-' + id).classList.add('active');
+  }
+
+  function copyInstallPrompt(btn) {
+    const text = document.getElementById('install-prompt-text').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const original = btn.innerHTML;
+      btn.innerHTML = '<i data-lucide="check" class="icon" style="width:14px;height:14px"></i> Copiado';
+      lucide.createIcons();
+      setTimeout(() => { btn.innerHTML = original; lucide.createIcons(); }, 1800);
+    });
   }
 </script>
 </body>

@@ -6,6 +6,13 @@ con verificación en vivo via TestSprite.
 
 ## Instalación rápida
 
+**Opción recomendada — un solo prompt, la IA hace todo:** copiá
+[`prompts/prompt-instalacion-ia.md`](prompts/prompt-instalacion-ia.md) y
+pegalo en Claude Code. Clona el repo, corre el setup y te hace el
+onboarding sin que toques la terminal.
+
+**Opción manual:**
+
 ```bash
 git clone https://github.com/hectorgvc/vengadores.git
 cd vengadores
