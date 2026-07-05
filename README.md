@@ -29,6 +29,25 @@ Ejecuta la skill jarvis
 
 Eso configura tu perfil personal y genera `CLAUDE-global.md` automáticamente.
 
+## Actualizar una instalación existente
+
+¿Ya instalaste Vengadores antes y solo querés lo último (agentes
+corregidos, skills nuevas, renombres)? Copiá
+[`prompts/prompt-actualizacion-ia.md`](prompts/prompt-actualizacion-ia.md)
+y pegalo en Claude Code — clona o actualiza el repo y corre `update.sh`
+(o `update.ps1` en Windows) por vos.
+
+A diferencia de `setup.sh` (que nunca sobreescribe nada existente),
+`update.sh` sí sincroniza el contenido de agentes y skills ya instalados
+con la última versión del repo, agrega lo nuevo y limpia migraciones
+conocidas (ej. skills renombradas). No toca tus proyectos ni tu perfil.
+
+```bash
+cd vengadores
+git pull
+./update.sh
+```
+
 ---
 
 ## El equipo — Agentes

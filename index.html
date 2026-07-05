@@ -524,7 +524,7 @@ Con mis respuestas, hacé esto:
 6. Cerrá con un resumen corto: dónde quedó el vault, cuántos agentes y skills quedaron activos, y cuál es el próximo paso (crear mi primer proyecto con ./nuevo-proyecto.sh "Nombre" /ruta/al/repo).
 
 Si algo falla (falta git, sin permisos, sin internet), explicámelo en español simple y decime exactamente qué tengo que resolver antes de reintentar.</pre>
-            <button class="btn btn-secondary" style="position:absolute;top:12px;right:12px;padding:6px 12px;font-size:.8rem" onclick="copyInstallPrompt(this)">
+            <button class="btn btn-secondary" style="position:absolute;top:12px;right:12px;padding:6px 12px;font-size:.8rem" onclick="copyPromptFrom('install-prompt-text', this)">
               <i data-lucide="copy" class="icon" style="width:14px;height:14px"></i> Copiar
             </button>
           </div>
@@ -661,6 +661,49 @@ $env:TESTSPRITE_API_KEY = "&lt;tu-clave&gt;"</pre>
   </div>
 </section>
 
+<!-- UPDATE -->
+<section id="update">
+  <div class="container">
+    <h2>Mantené tu instalación al día <span class="sub">Un prompt sincroniza agentes y skills con la última versión del repo</span></h2>
+    <br>
+    <div class="install-step">
+      <div class="install-step-body">
+        <div class="install-step-title"><span class="step-num">1</span> Copiá este prompt y pegalo en tu Claude Code</div>
+        <p style="color:var(--text2);margin-bottom:8px">Para cuando ya instalaste Vengadores antes y solo querés lo último: agentes corregidos, skills nuevas, renombres. La IA clona o actualiza el repo, corre <code>update.sh</code>/<code>update.ps1</code> y te cuenta qué cambió.</p>
+        <div style="position:relative">
+          <pre id="update-prompt-text" style="padding-right:96px;white-space:pre-wrap">Quiero actualizar mi instalación del sistema Vengadores a la última versión del repo. Encargate vos — yo no voy a tocar la terminal.
+
+1. Si existe ~/vengadores y es un repo git, entrá ahí. Si no existe, cloná primero:
+   git clone https://github.com/hectorgvc/vengadores.git ~/vengadores
+
+2. Desde ~/vengadores, corré el script de actualización según mi sistema operativo:
+   - Linux/macOS/WSL2: chmod +x update.sh && ./update.sh
+   - Windows (PowerShell): .\update.ps1
+
+   Este script actualiza los agentes y skills que ya tenía instalados (sobreescribe su contenido con la versión del repo), agrega lo que sea nuevo, y limpia cualquier skill renombrada u obsoleta. No toca mi vault más allá de 03-Skills/ — mis proyectos y notas quedan intactos.
+
+3. Leeme el resumen que imprime el script: qué agentes se actualizaron, qué skills son nuevas, y si hubo alguna migración (por ejemplo, renombres de skills).
+
+4. Si el resumen menciona que una skill fue renombrada o reemplazada, decime el nombre nuevo y cómo invocarla de ahora en más.
+
+5. Si algo falla (el repo no existe, sin permisos, sin internet), explicámelo en español simple y decime exactamente qué tengo que resolver antes de reintentar.
+
+No hace falta que repitas el onboarding (jarvis) a menos que yo te lo pida explícitamente — mi perfil ya está configurado.</pre>
+          <button class="btn btn-secondary" style="position:absolute;top:12px;right:12px;padding:6px 12px;font-size:.8rem" onclick="copyPromptFrom('update-prompt-text', this)">
+            <i data-lucide="copy" class="icon" style="width:14px;height:14px"></i> Copiar
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="install-step">
+      <div class="install-step-body">
+        <div class="install-step-title"><span class="step-num">2</span> Listo</div>
+        <p style="color:var(--text2)"><code>update.sh</code> es idempotente y seguro de correr las veces que quieras: solo sobreescribe agentes/skills cuyo contenido cambió, agrega lo nuevo, y no toca tus proyectos ni tu perfil.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="container">
@@ -681,8 +724,8 @@ $env:TESTSPRITE_API_KEY = "&lt;tu-clave&gt;"</pre>
     document.getElementById('tab-' + id).classList.add('active');
   }
 
-  function copyInstallPrompt(btn) {
-    const text = document.getElementById('install-prompt-text').textContent;
+  function copyPromptFrom(id, btn) {
+    const text = document.getElementById(id).textContent;
     navigator.clipboard.writeText(text).then(() => {
       const original = btn.innerHTML;
       btn.innerHTML = '<i data-lucide="check" class="icon" style="width:14px;height:14px"></i> Copiado';
