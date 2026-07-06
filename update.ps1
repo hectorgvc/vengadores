@@ -1,4 +1,4 @@
-# =============================================================
+﻿# =============================================================
 # Vengadores Workflow — update.ps1
 # Sincroniza agentes y skills desde este repo hacia una instalación
 # YA existente (~/.claude + vault). A diferencia de setup.ps1 (que nunca

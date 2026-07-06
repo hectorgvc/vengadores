@@ -1,4 +1,4 @@
-# vault-backup.ps1 — backup automático del vault de Obsidian hacia GitHub
+﻿# vault-backup.ps1 — backup automático del vault de Obsidian hacia GitHub
 # Repo: https://github.com/hectorgvc/vault-backup.git
 # Configurar el remote una sola vez:
 #   git remote add origin https://github.com/hectorgvc/vault-backup.git

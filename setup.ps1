@@ -1,4 +1,4 @@
-# =============================================================
+﻿# =============================================================
 # Vengadores Workflow — setup.ps1
 # Instalación para Windows (PowerShell 5.1+)
 # Uso: .\setup.ps1 [-Vault "C:\Users\TU\ObsidianVault"]

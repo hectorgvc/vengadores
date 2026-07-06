@@ -1,4 +1,4 @@
-# setup-backup.ps1 — configura el backup automático del vault hacia GitHub (Windows)
+﻿# setup-backup.ps1 — configura el backup automático del vault hacia GitHub (Windows)
 # Repo destino: https://github.com/hectorgvc/vault-backup.git
 
 $Vault     = "$env:USERPROFILE\ObsidianVault"
