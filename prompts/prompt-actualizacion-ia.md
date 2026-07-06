@@ -11,24 +11,34 @@ versión del repo. Encargate vos — yo no voy a tocar la terminal.
    cloná primero:
    git clone https://github.com/hectorgvc/vengadores.git ~/vengadores
 
-2. Desde ~/vengadores, corré el script de actualización según mi sistema
+2. ANTES de ejecutar nada, traé la última versión del repo:
+   git -C ~/vengadores pull --ff-only
+   Esto garantiza que el propio script de actualización sea el más
+   reciente (un script viejo con un bug no puede repararse a sí mismo).
+   Si el pull falla por cambios locales, mostrame qué archivos difieren
+   y preguntame antes de descartar nada.
+
+3. Recién ahí corré el script de actualización según mi sistema
    operativo:
    - Linux/macOS/WSL2: chmod +x update.sh && ./update.sh
    - Windows (PowerShell): .\update.ps1
+   En Windows: si da error de sintaxis o de caracteres raros, NO edites
+   el script — verificá con git log que el pull del paso 2 realmente
+   trajo lo último, y avisame.
 
    Este script actualiza los agentes y skills que ya tenía instalados
    (sobreescribe su contenido con la versión del repo), agrega lo que sea
    nuevo, y limpia cualquier skill renombrada u obsoleta. No toca mi vault
    más allá de 03-Skills/ — mis proyectos y notas quedan intactos.
 
-3. Leeme el resumen que imprime el script: qué agentes se actualizaron,
+4. Leeme el resumen que imprime el script: qué agentes se actualizaron,
    qué skills son nuevas, y si hubo alguna migración (por ejemplo,
    renombres de skills).
 
-4. Si el resumen menciona que una skill fue renombrada o reemplazada,
+5. Si el resumen menciona que una skill fue renombrada o reemplazada,
    decime el nombre nuevo y cómo invocarla de ahora en más.
 
-5. Si algo falla (el repo no existe, sin permisos, sin internet),
+6. Si algo falla (el repo no existe, sin permisos, sin internet),
    explicámelo en español simple y decime exactamente qué tengo que
    resolver antes de reintentar.
 
