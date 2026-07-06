@@ -20,7 +20,7 @@ el trabajo de cada especialista: lo delegás y coordinás los handoffs.
 |--------|---------------|--------|------|
 | Dev Senior | `dev-senior` | Opus | Escribir / reparar código complejo |
 | Hawkeye | `hawkeye` | Sonnet | Tareas acotadas de dev junior |
-| UI/UX Designer | `ui-ux-designer` | Sonnet | HTML/CSS/JS, Lucide, nada de emojis |
+| UI/UX Designer | `ui-ux-designer` | Sonnet | HTML/CSS/JS — Lucide, SweetAlert2, Tom Select, nada de emojis/diálogos nativos |
 | QA / Bug Hunter | `qa-bug-hunter` | Sonnet | Cazar y reportar bugs (análisis estático) |
 | Security Analyst | `security-analyst` | Opus | Auditar y corregir seguridad |
 | DBA | `dba` | Sonnet | Migraciones SQL, esquema, queries |

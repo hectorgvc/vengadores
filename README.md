@@ -56,7 +56,7 @@ git pull
 |--------|--------|-----|
 | `dev-senior` | Opus | Implementa features y repara bugs complejos |
 | `hawkeye` | Sonnet | Dev junior — tareas acotadas con guía explícita |
-| `ui-ux-designer` | Sonnet | Interfaces HTML/CSS/JS con iconos Lucide |
+| `ui-ux-designer` | Sonnet | Interfaces HTML/CSS/JS — Lucide, SweetAlert2, Tom Select |
 | `qa-bug-hunter` | Sonnet | Caza bugs y los reporta (no repara) |
 | `security-analyst` | Opus | Audita y corrige vulnerabilidades |
 | `dba` | Sonnet | Migraciones SQL y cambios de esquema |
