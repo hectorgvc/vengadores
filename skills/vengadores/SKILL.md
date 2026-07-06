@@ -29,6 +29,12 @@ el trabajo de cada especialista: lo delegás y coordinás los handoffs.
 > **TestSprite** no es un agente — es la skill `testsprite` que verifica el código
 > contra la app desplegada. Se invoca entre el paso de dev y el documentalista.
 
+> **Doctrina del equipo**: todos los agentes llevan embebido el
+> *Protocolo de decisión (legado Fable)* — cinco preguntas antes de cada
+> acción con efectos. La doctrina completa vive en la skill `mentor`; al
+> armar el plan de batalla, recordá que el gate aplica *antes* de actuar,
+> no después.
+
 ## Flujo (plan-primero → autónomo)
 
 1. **Analizá la misión** del usuario.

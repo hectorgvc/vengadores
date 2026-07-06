@@ -69,6 +69,7 @@ git pull
 | Skill | Trigger | Para qué |
 |-------|---------|----------|
 | `vengadores` | `/vengadores` | Orquestador — convoca al equipo |
+| `mentor` | `/mentor` | Doctrina de decisión del equipo — el legado de Fable |
 | `jarvis` | "ejecuta el onboarding" | Genera tu perfil y CLAUDE-global.md |
 | `team-context` | automática | Fundacional — carga CLAUDE-global.md |
 | `testsprite` | `/testsprite` | Verifica código contra app desplegada en vivo |
