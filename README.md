@@ -72,6 +72,7 @@ git pull
 | `mentor` | `/mentor` | Doctrina de decisión del equipo — el legado de Fable |
 | `jarvis` | "ejecuta el onboarding" | Genera tu perfil y CLAUDE-global.md |
 | `team-context` | automática | Fundacional — carga CLAUDE-global.md |
+| `playwright-cli` | `/playwright-cli` | Verifica en navegador contra la app local, antes del commit |
 | `testsprite` | `/testsprite` | Verifica código contra app desplegada en vivo |
 | `brainstorming` | `/brainstorming` | De idea a diseño con método socrático |
 | `depuracion-sistematica` | `/depuracion-sistematica` | Causa raíz antes que parche |
@@ -101,6 +102,7 @@ Nick Fury (orquestador):
      dev-senior     → implementa el módulo
      dba            → migración de esquema (si aplica)
      security-analyst → audita (si aplica)
+     playwright-cli → verifica local en navegador (pre-commit)
      testsprite     → verifica en vivo contra la app desplegada
      documentalista → registra en el vault
   5. Reporta al usuario qué quedó listo y qué pendiente
@@ -108,10 +110,30 @@ Nick Fury (orquestador):
 
 ---
 
-## TestSprite — verificación en vivo
+## Verificación en dos capas
 
-TestSprite cierra el loop del agente: en vez de "creer" que el código funciona,
-corre tests reales contra tu app desplegada.
+En vez de "creer" que el código funciona, el equipo lo verifica dos veces:
+primero **local** (antes del commit) y después **en vivo** (tras el deploy).
+
+### Capa 1 — Playwright CLI (local, gratis)
+
+Claude maneja un navegador real contra tu app en localhost/Docker.
+Siempre el **CLI**, nunca el Playwright MCP (4–10x más tokens).
+
+```bash
+npm install -g @playwright/cli
+playwright-cli install-browser chromium
+```
+
+Luego, después de cualquier cambio con superficie web:
+```
+/playwright-cli
+```
+
+### Capa 2 — TestSprite (desplegado, créditos)
+
+Un agente independiente corre tests contra tu app desplegada
+(requiere URL pública — no funciona contra localhost).
 
 ```bash
 npm install -g @testsprite/testsprite-cli
@@ -123,6 +145,9 @@ Luego en cualquier misión con la app desplegada:
 ```
 /testsprite
 ```
+
+Si la app no corre local se salta la capa 1; si no está desplegada se
+salta la capa 2 — siempre documentando el porqué.
 
 ---
 

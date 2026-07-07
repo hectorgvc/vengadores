@@ -26,8 +26,13 @@ el trabajo de cada especialista: lo delegás y coordinás los handoffs.
 | DBA | `dba` | Sonnet | Migraciones SQL, esquema, queries |
 | Documentalista | `documentalista` | Haiku | Registrar la misión en el vault |
 
-> **TestSprite** no es un agente — es la skill `testsprite` que verifica el código
-> contra la app desplegada. Se invoca entre el paso de dev y el documentalista.
+> **La verificación tiene dos capas y ninguna es un agente:**
+> la skill `playwright-cli` verifica en navegador real contra la app **local**
+> (localhost/Docker) antes del commit, y la skill `testsprite` verifica contra
+> la app **desplegada** después del deploy. Orden: dev → playwright-cli →
+> commit/deploy → testsprite → documentalista. Si la app no corre local se
+> salta la primera; si no está desplegada se salta la segunda — documentando
+> el porqué en ambos casos.
 
 > **Doctrina del equipo**: todos los agentes llevan embebido el
 > *Protocolo de decisión (legado Fable)* — cinco preguntas antes de cada
@@ -51,9 +56,12 @@ el trabajo de cada especialista: lo delegás y coordinás los handoffs.
    - Patrón típico de misión completa:
      `qa-bug-hunter` encuentra → `dev-senior` repara →
      `dba` si toca esquema → `security-analyst` audita →
-     skill `testsprite` verifica en vivo → `documentalista` registra.
-   - Si la app no está desplegada aún, omitir `testsprite` y cerrar
-     con `documentalista` directamente.
+     skill `playwright-cli` verifica local (pre-commit) →
+     skill `testsprite` verifica en vivo (post-deploy) →
+     `documentalista` registra.
+   - Si la app no corre local, omitir `playwright-cli`; si no está
+     desplegada, omitir `testsprite`. Sin ninguna de las dos capas,
+     cerrar con `documentalista` documentando que quedó sin verificar.
    - A nivel orquestación, apoyate en los built-in `/code-review` y
      `/security-review` cuando apliquen, en vez de reinventarlos.
    - Lanzá en paralelo solo agentes **independientes**; si hay

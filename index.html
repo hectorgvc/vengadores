@@ -269,6 +269,8 @@
             <span class="ts-arrow">→</span>
             <span class="flow-agent">security-analyst</span>
             <span class="ts-arrow">→</span>
+            <span class="flow-agent highlight">playwright-cli</span>
+            <span class="ts-arrow">→</span>
             <span class="flow-agent highlight">testsprite</span>
             <span class="ts-arrow">→</span>
             <span class="flow-agent">documentalista</span>
@@ -286,34 +288,40 @@
   </div>
 </section>
 
-<!-- TESTSPRITE -->
+<!-- VERIFICACION EN DOS CAPAS -->
 <section>
   <div class="container">
-    <h2>TestSprite — verificación en vivo <span class="sub">Cierra el loop del agente con tests reales</span></h2>
+    <h2>Verificación en dos capas <span class="sub">Local antes del commit · en vivo después del deploy</span></h2>
     <br>
     <div class="ts-box">
       <div class="ts-title">
         <i data-lucide="shield-check" style="width:24px;height:24px;color:#fcd34d"></i>
         <h3>El problema que resuelve</h3>
       </div>
-      <p style="color:var(--text2);margin-bottom:16px">"Un loop sin verificador real no falla en voz alta — alucina progreso."<br>TestSprite corre tests reales contra tu app desplegada para confirmar que el código funciona.</p>
+      <p style="color:var(--text2);margin-bottom:16px">"Un loop sin verificador real no falla en voz alta — alucina progreso."<br>El equipo verifica dos veces: <strong>Playwright CLI</strong> maneja un navegador real contra tu app local antes del commit (gratis), y <strong>TestSprite</strong> corre tests contra la app desplegada después del deploy.</p>
 
       <div class="ts-loop">
         <span class="ts-node">dev escribe</span>
         <span class="ts-arrow">→</span>
-        <span class="ts-node active">testsprite verifica</span>
+        <span class="ts-node active">playwright-cli verifica local</span>
         <span class="ts-arrow">→</span>
-        <span class="ts-node">falla → dev corrige</span>
+        <span class="ts-node">commit / deploy</span>
         <span class="ts-arrow">→</span>
-        <span class="ts-node active">testsprite verifica</span>
+        <span class="ts-node active">testsprite verifica en vivo</span>
         <span class="ts-arrow">→</span>
         <span class="ts-node">pasa → documentalista</span>
       </div>
 
-      <pre>npm install -g @testsprite/testsprite-cli
+      <pre># Capa 1 — Playwright CLI (local, gratis; siempre CLI, nunca el MCP)
+npm install -g @playwright/cli
+playwright-cli install-browser chromium
+# Tras un cambio con superficie web:
+/playwright-cli
+
+# Capa 2 — TestSprite (app desplegada, requiere URL pública)
+npm install -g @testsprite/testsprite-cli
 export TESTSPRITE_API_KEY=&lt;tu-clave&gt;   # testsprite.com → Settings → API Keys
 testsprite setup --from-env --agent claude
-
 # En cualquier misión con la app desplegada:
 /testsprite</pre>
     </div>
@@ -323,7 +331,7 @@ testsprite setup --from-env --agent claude
 <!-- SKILLS -->
 <section>
   <div class="container">
-    <h2>Skills disponibles <span class="sub">20 skills core + 6 skills GeneXus opcionales — activadas por palabras clave</span></h2>
+    <h2>Skills disponibles <span class="sub">21 skills core + 6 skills GeneXus opcionales — activadas por palabras clave</span></h2>
     <br>
     <table class="skills-table">
       <thead>
@@ -345,7 +353,12 @@ testsprite setup --from-env --agent claude
           <td>Genera tu perfil personal y CLAUDE-global.md en entrevista guiada</td>
         </tr>
         <tr>
-          <td><code>testsprite</code> <span class="badge-new">NUEVO</span></td>
+          <td><code>playwright-cli</code> <span class="badge-new">NUEVO</span></td>
+          <td><span class="trigger">/playwright-cli</span></td>
+          <td>Verifica en navegador real contra la app local, antes del commit (siempre CLI, nunca MCP)</td>
+        </tr>
+        <tr>
+          <td><code>testsprite</code></td>
           <td><span class="trigger">/testsprite</span></td>
           <td>Verifica código contra app desplegada en vivo (requiere URL pública)</td>
         </tr>
@@ -657,7 +670,7 @@ $env:TESTSPRITE_API_KEY = "&lt;tu-clave&gt;"</pre>
 │   └── mi-perfil.md
 ├── 01-Proyectos/      ← vacío al inicio
 ├── 02-Plantillas/
-├── 03-Skills/         ← 20 skills
+├── 03-Skills/         ← 21 skills
 ├── 04-Wiki/
 ├── nuevo-proyecto.sh
 └── usar-skill.sh</pre>
