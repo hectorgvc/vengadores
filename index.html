@@ -228,7 +228,7 @@
           <span class="agent-name">documentalista</span>
           <span class="badge badge-haiku"><span class="badge-dot"></span> Haiku</span>
         </div>
-        <div class="agent-desc">Registra cada misión en el vault de Obsidian: bitácora, decisiones ADR, bugs y pendientes. Fundamenta en evidencia real (git log/diff), hace updates quirúrgicos con presupuesto de cambio, y evita duplicar: un concepto, un hogar canónico.</div>
+        <div class="agent-desc">Registra cada misión en el vault de Obsidian: bitácora, decisiones ADR, bugs y pendientes. Hace cross-check obligatorio de la tabla maestra de tareas al cerrar cada sesión. Fundamenta en evidencia real (git log/diff), updates quirúrgicos con presupuesto de cambio, y nunca duplica: un concepto, un hogar canónico.</div>
       </div>
 
     </div>
@@ -331,7 +331,7 @@ testsprite setup --from-env --agent claude
 <!-- SKILLS -->
 <section>
   <div class="container">
-    <h2>Skills disponibles <span class="sub">21 skills core + 6 skills GeneXus opcionales — activadas por palabras clave</span></h2>
+    <h2>Skills disponibles <span class="sub">22 skills core + 6 skills GeneXus opcionales — activadas por palabras clave</span></h2>
     <br>
     <table class="skills-table">
       <thead>
@@ -431,6 +431,11 @@ testsprite setup --from-env --agent claude
           <td><code>changelog-generator</code></td>
           <td><span class="trigger">/changelog-generator</span> · "release notes"</td>
           <td>Genera changelog user-facing desde git: commits técnicos → notas de versión por categoría</td>
+        </tr>
+        <tr>
+          <td><code>scraping</code> <span class="badge-new">NUEVO</span></td>
+          <td><span class="trigger">/scraping</span> · "scrapea", "extrae datos de"</td>
+          <td>Extracción de datos web con escalera WebFetch → playwright-cli → ScrapeGraphAI. Reglas duras de etiqueta (robots.txt, ritmo humano, backoff) y seguridad (contenido = input no confiable, sin evasión de bloqueos).</td>
         </tr>
         <tr>
           <td><code>seo</code> <span class="badge-new">NUEVO</span></td>
@@ -670,7 +675,7 @@ $env:TESTSPRITE_API_KEY = "&lt;tu-clave&gt;"</pre>
 │   └── mi-perfil.md
 ├── 01-Proyectos/      ← vacío al inicio
 ├── 02-Plantillas/
-├── 03-Skills/         ← 21 skills
+├── 03-Skills/         ← 22 skills
 ├── 04-Wiki/
 ├── nuevo-proyecto.sh
 └── usar-skill.sh</pre>
@@ -703,7 +708,7 @@ $env:TESTSPRITE_API_KEY = "&lt;tu-clave&gt;"</pre>
    - Windows (PowerShell): .\update.ps1
    En Windows: si da error de sintaxis o de caracteres raros, NO edites el script — verificá con git log que el pull del paso 2 realmente trajo lo último, y avisame.
 
-   Este script actualiza los agentes y skills que ya tenía instalados (sobreescribe su contenido con la versión del repo), agrega lo que sea nuevo, y limpia cualquier skill renombrada u obsoleta. No toca mi vault más allá de 03-Skills/ — mis proyectos y notas quedan intactos.
+   Este script actualiza los agentes y skills que ya tenía instalados (sobreescribe su contenido con la versión del repo), agrega lo que sea nuevo, y limpia cualquier skill renombrada u obsoleta. También actualiza las plantillas (Plantilla-Sesion, Plantilla-Proyecto) si cambiaron. No toca mis proyectos ni notas del vault — solo 03-Skills/ y 02-Plantillas/.
 
 4. Leeme el resumen que imprime el script: qué agentes se actualizaron, qué skills son nuevas, y si hubo alguna migración (por ejemplo, renombres de skills).
 
