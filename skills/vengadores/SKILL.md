@@ -18,18 +18,19 @@ el trabajo de cada especialista: lo delegás y coordinás los handoffs.
 
 | Agente | subagent_type | Modelo | Para |
 |--------|---------------|--------|------|
-| Dev Senior | `dev-senior` | Opus | Escribir / reparar código complejo |
+| Dev Senior | `dev-senior` | Opus | Escribir / reparar código |
 | Hawkeye | `hawkeye` | Sonnet | Tareas acotadas de dev junior |
 | UI/UX Designer | `ui-ux-designer` | Sonnet | HTML/CSS/JS — Lucide, SweetAlert2, Tom Select, nada de emojis/diálogos nativos |
 | QA / Bug Hunter | `qa-bug-hunter` | Sonnet | Cazar y reportar bugs (análisis estático) |
 | Security Analyst | `security-analyst` | Opus | Auditar y corregir seguridad |
 | DBA | `dba` | Sonnet | Migraciones SQL, esquema, queries |
 | Documentalista | `documentalista` | Haiku | Registrar la misión en el vault |
+| **Experto Fiscal e-CF** | `fiscal-ecf` | **Opus** | **Cualquier tarea que toque facturación electrónica DGII, XML, firma, secuencias NCF, QR Timbre, certificación o envío a DGII. OBLIGATORIO en misiones fiscales.** |
 
 > **La verificación tiene dos capas y ninguna es un agente:**
-> la skill `playwright-cli` verifica en navegador real contra la app **local**
+> la skill `verificacion-web` verifica en navegador real contra la app **local**
 > (localhost/Docker) antes del commit, y la skill `testsprite` verifica contra
-> la app **desplegada** después del deploy. Orden: dev → playwright-cli →
+> la app **desplegada** después del deploy. Orden: dev → verificacion-web →
 > commit/deploy → testsprite → documentalista. Si la app no corre local se
 > salta la primera; si no está desplegada se salta la segunda — documentando
 > el porqué en ambos casos.
@@ -40,10 +41,16 @@ el trabajo de cada especialista: lo delegás y coordinás los handoffs.
 > armar el plan de batalla, recordá que el gate aplica *antes* de actuar,
 > no después.
 
+### Regla de oro fiscal
+Cuando la misión toque e-CF (directa o indirectamente), **convocar `fiscal-ecf` SIEMPRE**,
+incluso antes de QA o Dev Senior. Este agente lee `core-mavelerp.md` completo antes de
+actuar y es el guardián de los 21/21 ya certificados. Nunca dejar que Dev Senior toque
+`EcfManager.php` sin que `fiscal-ecf` haya revisado primero.
+
 ## Flujo (plan-primero → autónomo)
 
 1. **Analizá la misión** del usuario.
-2. **Elegí solo los agentes necesarios.** NO spawnees los 7 siempre. Una
+2. **Elegí solo los agentes necesarios.** NO spawnees los 6 siempre. Una
    corrección de UI quizá solo necesita `ui-ux-designer` + `documentalista`.
    Cada subagente arranca en frío (re-lee CLAUDE.md, re-deriva contexto) y
    consume tokens.
@@ -56,10 +63,10 @@ el trabajo de cada especialista: lo delegás y coordinás los handoffs.
    - Patrón típico de misión completa:
      `qa-bug-hunter` encuentra → `dev-senior` repara →
      `dba` si toca esquema → `security-analyst` audita →
-     skill `playwright-cli` verifica local (pre-commit) →
+     skill `verificacion-web` verifica local (pre-commit) →
      skill `testsprite` verifica en vivo (post-deploy) →
      `documentalista` registra.
-   - Si la app no corre local, omitir `playwright-cli`; si no está
+   - Si la app no corre local, omitir `verificacion-web`; si no está
      desplegada, omitir `testsprite`. Sin ninguna de las dos capas,
      cerrar con `documentalista` documentando que quedó sin verificar.
    - A nivel orquestación, apoyate en los built-in `/code-review` y
@@ -71,13 +78,6 @@ el trabajo de cada especialista: lo delegás y coordinás los handoffs.
    `Tareas-Pendientes.md`).
 6. **Reportá** al usuario: qué hizo cada agente, qué quedó pendiente y qué
    se registró en el vault.
-
-## Cuándo usar hawkeye vs dev-senior
-
-- **hawkeye**: tareas bien definidas, cambios acotados, código existente
-  a modificar, trabajo de aprendizaje. Sonnet, más económico.
-- **dev-senior**: arquitectura nueva, bugs sin pistas claras, razonamiento
-  multi-paso, decisiones con múltiples trade-offs. Opus, más potente.
 
 ## Reglas
 
