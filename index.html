@@ -269,7 +269,7 @@
             <span class="ts-arrow">→</span>
             <span class="flow-agent">security-analyst</span>
             <span class="ts-arrow">→</span>
-            <span class="flow-agent highlight">verificacion-web</span>
+            <span class="flow-agent highlight">navegador-qa</span>
             <span class="ts-arrow">→</span>
             <span class="flow-agent highlight">testsprite</span>
             <span class="ts-arrow">→</span>
@@ -303,7 +303,7 @@
       <div class="ts-loop">
         <span class="ts-node">dev escribe</span>
         <span class="ts-arrow">→</span>
-        <span class="ts-node active">verificacion-web (local)</span>
+        <span class="ts-node active">navegador-qa (local)</span>
         <span class="ts-arrow">→</span>
         <span class="ts-node">commit / deploy</span>
         <span class="ts-arrow">→</span>
@@ -316,7 +316,7 @@
 npm install -g @playwright/cli
 playwright-cli install-browser chromium
 # Tras un cambio con superficie web (skill renombrada para no colisionar con el binario):
-/verificacion-web
+/navegador-qa
 
 # Capa 2 — TestSprite (app desplegada, requiere URL pública)
 npm install -g @testsprite/testsprite-cli
@@ -353,8 +353,8 @@ testsprite setup --from-env --agent claude
           <td>Genera tu perfil personal y CLAUDE-global.md en entrevista guiada</td>
         </tr>
         <tr>
-          <td><code>verificacion-web</code> <span class="badge-new">NUEVO</span></td>
-          <td><span class="trigger">/verificacion-web</span></td>
+          <td><code>navegador-qa</code> <span class="badge-new">NUEVO</span></td>
+          <td><span class="trigger">/navegador-qa</span></td>
           <td>Verifica en navegador real (Playwright CLI) contra la app local, antes del commit (siempre CLI, nunca MCP)</td>
         </tr>
         <tr>

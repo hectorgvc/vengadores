@@ -28,9 +28,9 @@ el trabajo de cada especialista: lo delegás y coordinás los handoffs.
 | **Experto Fiscal e-CF** | `fiscal-ecf` | **Opus** | **Cualquier tarea que toque facturación electrónica DGII, XML, firma, secuencias NCF, QR Timbre, certificación o envío a DGII. OBLIGATORIO en misiones fiscales.** |
 
 > **La verificación tiene dos capas y ninguna es un agente:**
-> la skill `verificacion-web` verifica en navegador real contra la app **local**
+> la skill `navegador-qa` verifica en navegador real contra la app **local**
 > (localhost/Docker) antes del commit, y la skill `testsprite` verifica contra
-> la app **desplegada** después del deploy. Orden: dev → verificacion-web →
+> la app **desplegada** después del deploy. Orden: dev → navegador-qa →
 > commit/deploy → testsprite → documentalista. Si la app no corre local se
 > salta la primera; si no está desplegada se salta la segunda — documentando
 > el porqué en ambos casos.
@@ -63,10 +63,10 @@ actuar y es el guardián de los 21/21 ya certificados. Nunca dejar que Dev Senio
    - Patrón típico de misión completa:
      `qa-bug-hunter` encuentra → `dev-senior` repara →
      `dba` si toca esquema → `security-analyst` audita →
-     skill `verificacion-web` verifica local (pre-commit) →
+     skill `navegador-qa` verifica local (pre-commit) →
      skill `testsprite` verifica en vivo (post-deploy) →
      `documentalista` registra.
-   - Si la app no corre local, omitir `verificacion-web`; si no está
+   - Si la app no corre local, omitir `navegador-qa`; si no está
      desplegada, omitir `testsprite`. Sin ninguna de las dos capas,
      cerrar con `documentalista` documentando que quedó sin verificar.
    - A nivel orquestación, apoyate en los built-in `/code-review` y

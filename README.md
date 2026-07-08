@@ -72,7 +72,7 @@ git pull
 | `mentor` | `/mentor` | Doctrina de decisión del equipo — el legado de Fable |
 | `jarvis` | "ejecuta el onboarding" | Genera tu perfil y CLAUDE-global.md |
 | `team-context` | automática | Fundacional — carga CLAUDE-global.md |
-| `verificacion-web` | `/verificacion-web` | Verifica en navegador (Playwright CLI) contra la app local, antes del commit |
+| `navegador-qa` | `/navegador-qa` | Verifica en navegador (Playwright CLI) contra la app local, antes del commit |
 | `testsprite` | `/testsprite` | Verifica código contra app desplegada en vivo |
 | `brainstorming` | `/brainstorming` | De idea a diseño con método socrático |
 | `depuracion-sistematica` | `/depuracion-sistematica` | Causa raíz antes que parche |
@@ -102,7 +102,7 @@ Nick Fury (orquestador):
      dev-senior     → implementa el módulo
      dba            → migración de esquema (si aplica)
      security-analyst → audita (si aplica)
-     verificacion-web → verifica local en navegador (pre-commit)
+     navegador-qa → verifica local en navegador (pre-commit)
      testsprite     → verifica en vivo contra la app desplegada
      documentalista → registra en el vault
   5. Reporta al usuario qué quedó listo y qué pendiente
@@ -126,9 +126,9 @@ playwright-cli install-browser chromium
 ```
 
 Luego, después de cualquier cambio con superficie web (la skill se llama
-`verificacion-web` para no colisionar con la que instala el propio binario):
+`navegador-qa` para no colisionar con la que instala el propio binario):
 ```
-/verificacion-web
+/navegador-qa
 ```
 
 ### Capa 2 — TestSprite (desplegado, créditos)

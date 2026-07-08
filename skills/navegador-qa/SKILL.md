@@ -4,16 +4,17 @@ description: >
   Activar después de un cambio con superficie web (vistas, JS, formularios)
   ANTES de commitear, cuando la app corre en localhost/Docker local, o cuando
   el usuario diga "probalo en el navegador", "verifica la UI local",
-  "/verificacion-web". NO usar para verificar el ambiente desplegado — eso es
+  "/navegador-qa". NO usar para verificar el ambiente desplegado — eso es
   la skill testsprite. Complementarias: esta capa prueba lo que todavía no
   salió de tu máquina; TestSprite da el veredicto sobre lo publicado.
   (Usa el binario `playwright-cli` por debajo; la skill se llama distinto a
-  propósito, para no colisionar con la skill que instala ese binario.)
+  propósito: NO usar el prefijo "playwright" — colisiona con la skill que
+  instala ese binario — ni "verif" — colisiona con la built-in /verify.)
 depends_on:
   - team-context
 ---
 
-# verificacion-web — verificador local en navegador (Playwright CLI)
+# navegador-qa — verificador local en navegador (Playwright CLI)
 
 Cerrás el loop de desarrollo ANTES del commit: manejás un navegador real
 contra la app local, verificás el cambio de punta a punta y solo entonces
