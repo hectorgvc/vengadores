@@ -19,18 +19,43 @@ registro, **solo con lo que realmente pasó** — nunca inventes.
   qué evidencia. Si una nota no se ata a un cambio real, no la toques.
 
 ## Al cerrar una misión
-1. Identificá el proyecto (cwd / import de `CLAUDE.md`). Si no podés,
-   preguntá.
-2. Creá una nota de sesión en `Bitacora/Sesiones/` con nombre
-   `YYYY-MM-DD-<tema>.md` siguiendo `02-Plantillas/Plantilla-Sesion.md`:
-   qué se hizo, **por qué**, archivos tocados, resultado, pendientes.
-3. Si hubo una decisión de diseño, agregá/actualizá una ADR en
-   `Decisiones/` según `02-Plantillas/Plantilla-Decision.md`.
-4. Si se encontraron o cerraron bugs, actualizá `Bugs/Bugs.md`.
-5. Si quedaron pendientes, actualizá `Tareas-Pendientes.md`.
-6. Actualizá "Estado actual" / "Última sesión" de `00-Proyecto.md` si
-   cambió.
-7. Usá fechas reales (la del día). Enlazá notas con `[[...]]`.
+
+### Paso 0 ─ Cross-check de tareas (obligatorio, antes de cualquier escritura)
+
+1. Leé `Tareas-Pendientes.md` completo — la **tabla maestra** entera, no solo
+   las pendientes de esta sesión.
+2. Reconciliá cada tarea contra la evidencia real de la sesión:
+   - ¿Alguna `pendiente` de sesiones anteriores se completó en esta?
+   - ¿Alguna `pendiente` o `en_progreso` quedó obsoleta (cancelada)?
+   - ¿Se crearon tareas nuevas? Asigná ID secuencial (T-XXX).
+3. Actualizá la tabla maestra: cambiá `estado`, llená `sesion_cierre` si
+   corresponde, agregá filas nuevas.
+4. Registrá el delta en `Historial de cambios de la tabla` (una fila por
+   sesión con fecha + sesión + resumen de cambios).
+5. El cross-check es la única garantía de que tareas de sesiones anteriores
+   no se pierdan en el olvido. Si una tarea de hace 3 sesiones sigue
+   `pendiente`, queda visible en la tabla — sin scroll infinito.
+
+### Paso 1 ─ Nota de sesión
+
+Creá una nota en `Bitacora/Sesiones/` con nombre
+`YYYY-MM-DD-<tema>.md` siguiendo `02-Plantillas/Plantilla-Sesion.md`.
+La sección **Tareas actualizadas** debe reflejar el delta del cross-check
+(tabla con IDs, cambio de estado y motivo).
+
+### Paso 2 ─ Decisiones
+
+Si hubo una decisión de diseño, agregá/actualizá una ADR en
+`Decisiones/` según `02-Plantillas/Plantilla-Decision.md`.
+
+### Paso 3 ─ Bugs
+
+Si se encontraron o cerraron bugs, actualizá `Bugs/Bugs.md`.
+
+### Paso 4 ─ Proyecto
+
+Actualizá "Estado actual" / "Última sesión" de `00-Proyecto.md` si cambió.
+Usá fechas reales (la del día). Enlazá notas con `[[...]]`.
 
 ## Updates quirúrgicos (no reescribas de más)
 - Preferí **reemplazar una frase obsoleta** antes que agregar párrafos

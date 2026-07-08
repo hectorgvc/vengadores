@@ -60,7 +60,7 @@ git pull
 | `qa-bug-hunter` | Sonnet | Caza bugs y los reporta (no repara) |
 | `security-analyst` | Opus | Audita y corrige vulnerabilidades |
 | `dba` | Sonnet | Migraciones SQL y cambios de esquema |
-| `documentalista` | Haiku | Registra todo en el vault al cerrar cada misión |
+| `documentalista` | Haiku | Registra todo en el vault al cerrar cada misión. Cross-check obligatorio de tareas (Paso 0) — reconcilia la tabla maestra contra la evidencia real, evitando tareas olvidadas. |
 
 ---
 
@@ -149,6 +149,23 @@ Luego en cualquier misión con la app desplegada:
 
 Si la app no corre local se salta la capa 1; si no está desplegada se
 salta la capa 2 — siempre documentando el porqué.
+
+---
+
+## Metodología de documentación
+
+El sistema usa **tracking de tareas con cross-check obligatorio** para evitar que tareas de sesiones anteriores se pierdan en el olvido.
+
+### Cómo funciona
+
+1. Cada proyecto tiene un `Tareas-Pendientes.md` con **tabla maestra** (IDs T-XXX, estado, prioridad, sesión origen/cierre).
+2. Al cerrar cada sesión, el agente `documentalista` ejecuta el **Paso 0: Cross-check** — lee TODA la tabla, reconcilia cada tarea contra la evidencia real, y actualiza estados.
+3. La nota de sesión (`Bitacora/Sesiones/YYYY-MM-DD-tema.md`) incluye una sección `Tareas actualizadas` que registra el delta (qué IDs cambiaron y por qué).
+4. Un `Historial de cambios` separado (1 fila por sesión) reemplaza el viejo backlog cronológico infinito.
+
+### Migración desde v1
+
+Si venís del sistema anterior (backlog cronológico por sesión), `update.sh` migra automáticamente renombrando `Tareas-Pendientes.md` a `Tareas-Pendientes-legacy.md`. El nuevo sistema empieza limpio, con tabla poblada desde las tareas genuinamente abiertas.
 
 ---
 

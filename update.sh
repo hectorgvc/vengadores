@@ -64,7 +64,22 @@ if [ -e "$CLAUDE_SKILLS/team-onboarding" ]; then
   info "Symlink obsoleto eliminado: team-onboarding"
 fi
 
-# ── 2. Agentes — sobreescribir con la versión del repo ────
+# ── 2. Plantillas — actualizar templates (setup.sh los crea solo si no existen,
+#    pero update.sh los sobreescribe porque cambian con mejoras de workflow) ────
+section "2 · Plantillas (vault)"
+
+for tpl in "$REPO_DIR/templates/"*.md; do
+  tpl_name="$(basename "$tpl")"
+  DEST="$VAULT/02-Plantillas/$tpl_name"
+  if [ -f "$DEST" ] && cmp -s "$tpl" "$DEST"; then
+    same "$tpl_name"
+  else
+    cp "$tpl" "$DEST"
+    info "Actualizada plantilla: $tpl_name"
+  fi
+done
+
+# ── 3. Agentes — sobreescribir con la versión del repo ────
 section "2 · Agentes (~/.claude/agents/)"
 
 mkdir -p "$CLAUDE_AGENTS"
@@ -79,7 +94,7 @@ for agent_file in "$REPO_DIR/agents/"*.md; do
   fi
 done
 
-# ── 3. Skills — sincronizar contenido existente + agregar nuevas ──
+# ── 4. Skills — sincronizar contenido existente + agregar nuevas ──
 section "3 · Skills (vault + ~/.claude/skills/)"
 
 mkdir -p "$CLAUDE_SKILLS"
@@ -116,3 +131,12 @@ echo ""
 echo "  Nota: si usabas la skill 'team-onboarding', ahora se llama"
 echo "  'jarvis'. Decile a Claude Code: 'Ejecuta la skill jarvis'."
 echo ""
+echo "  ── Sistema de tareas v2 ──"
+echo "  A partir de esta versión, el agente documentalista hace cross-check"
+echo "  obligatorio de TODAS las tareas al cerrar cada sesión (Paso 0 en"
+echo "  agents/documentalista.md)."
+echo "  Si tenías un Tareas-Pendientes.md existente, se migró a"
+echo "  Tareas-Pendientes-legacy.md (histórico, no se actualiza más)."
+echo "  La nueva tabla maestra reemplaza el backlog cronológico infinito."
+echo "  Ver Plantilla-Sesion.md (sección 'Tareas actualizadas') para el"
+echo "  nuevo formato de nota de sesión."

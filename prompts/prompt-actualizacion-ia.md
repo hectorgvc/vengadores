@@ -28,8 +28,10 @@ versión del repo. Encargate vos — yo no voy a tocar la terminal.
 
    Este script actualiza los agentes y skills que ya tenía instalados
    (sobreescribe su contenido con la versión del repo), agrega lo que sea
-   nuevo, y limpia cualquier skill renombrada u obsoleta. No toca mi vault
-   más allá de 03-Skills/ — mis proyectos y notas quedan intactos.
+   nuevo, y limpia cualquier skill renombrada u obsoleta. También
+   **actualiza las plantillas** (Plantilla-Sesion, Plantilla-Proyecto)
+   si cambiaron. No toca mis proyectos ni notas del vault — solo
+   03-Skills/ y 02-Plantillas/.
 
 4. Leeme el resumen que imprime el script: qué agentes se actualizaron,
    qué skills son nuevas, y si hubo alguna migración (por ejemplo,
