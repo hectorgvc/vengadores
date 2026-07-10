@@ -18,8 +18,8 @@ el trabajo de cada especialista: lo delegás y coordinás los handoffs.
 
 | Agente | subagent_type | Modelo | Para |
 |--------|---------------|--------|------|
-| Dev Senior | `dev-senior` | Opus | Escribir / reparar código |
-| Hawkeye | `hawkeye` | Sonnet | Tareas acotadas de dev junior |
+| Dev Senior | `dev-senior` | Opus | Código ambiguo, arquitectónico o bug de causa no obvia |
+| Hawkeye | `hawkeye` | Sonnet | **Default** de implementación: reparación/tarea acotada y mecánica |
 | UI/UX Designer | `ui-ux-designer` | Sonnet | HTML/CSS/JS — Lucide, SweetAlert2, Tom Select, nada de emojis/diálogos nativos |
 | QA / Bug Hunter | `qa-bug-hunter` | Sonnet | Cazar y reportar bugs (análisis estático) |
 | Security Analyst | `security-analyst` | Opus | Auditar y corregir seguridad |
@@ -47,6 +47,26 @@ incluso antes de QA o Dev Senior. Este agente lee `core-mavelerp.md` completo an
 actuar y es el guardián de los 21/21 ya certificados. Nunca dejar que Dev Senior toque
 `EcfManager.php` sin que `fiscal-ecf` haya revisado primero.
 
+### Triage de implementación: junior por defecto
+
+Cuando una tarea requiere escribir o reparar código, clasificala ANTES de
+elegir agente — el default es el más barato que alcanza:
+
+- **Trivial / un solo paso** → resolvela en la sesión principal, no spawnees
+  a nadie: el arranque en frío de un subagente cuesta más que la tarea.
+- **Acotada, con spec claro y sin riesgo arquitectónico** → `hawkeye`
+  (Sonnet). Es la banda donde delegar de verdad ahorra: modelo barato sobre
+  el grueso del trabajo. Pasale el spec explícito; ya corre
+  `junior-code-review` antes de entregar.
+- **Ambigua, arquitectónica, bug de causa no obvia o riesgosa** →
+  `dev-senior` (Opus).
+
+Vos (Fury) ya sos la capa de análisis: **no** spawnees un `dev-senior` "para
+que analice y le pase indicaciones a Hawkeye" — esa descomposición es tu
+trabajo y ya la hacés en Opus. Escalado: si Hawkeye topa con algo
+arquitectónico, te lo devuelve a vos y ahí recién decidís gastar un
+`dev-senior` en esa parte. Hawkeye nunca consulta a `dev-senior` directo.
+
 ## Flujo (plan-primero → autónomo)
 
 1. **Analizá la misión** del usuario.
@@ -61,7 +81,8 @@ actuar y es el guardián de los 21/21 ya certificados. Nunca dejar que Dev Senio
 4. Aprobado → **ejecutá**: spawneá los agentes en secuencia vía Agent,
    pasándole a cada uno el contexto y el output del anterior.
    - Patrón típico de misión completa:
-     `qa-bug-hunter` encuentra → `dev-senior` repara →
+     `qa-bug-hunter` encuentra → triage de reparación (acotada/mecánica →
+     `hawkeye`; ambigua/arquitectónica → `dev-senior`) →
      `dba` si toca esquema → `security-analyst` audita →
      skill `navegador-qa` verifica local (pre-commit) →
      skill `testsprite` verifica en vivo (post-deploy) →
