@@ -24,7 +24,7 @@ el trabajo de cada especialista: lo delegás y coordinás los handoffs.
 | QA / Bug Hunter | `qa-bug-hunter` | Sonnet | Cazar y reportar bugs (análisis estático) |
 | Security Analyst | `security-analyst` | Opus | Auditar y corregir seguridad |
 | DBA | `dba` | Sonnet | Migraciones SQL, esquema, queries |
-| Documentalista | `documentalista` | Haiku | Registrar la misión en el vault |
+| Documentalista | `documentalista` | Sonnet | Registrar la misión en el vault |
 | **Experto Fiscal e-CF** | `fiscal-ecf` | **Opus** | **Cualquier tarea que toque facturación electrónica DGII, XML, firma, secuencias NCF, QR Timbre, certificación o envío a DGII. OBLIGATORIO en misiones fiscales.** |
 
 > **La verificación tiene dos capas y ninguna es un agente:**

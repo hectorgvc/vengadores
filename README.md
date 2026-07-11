@@ -60,7 +60,7 @@ git pull
 | `qa-bug-hunter` | Sonnet | Caza bugs y los reporta (no repara) |
 | `security-analyst` | Opus | Audita y corrige vulnerabilidades |
 | `dba` | Sonnet | Migraciones SQL y cambios de esquema |
-| `documentalista` | Haiku | Registra todo en el vault al cerrar cada misión. Cross-check obligatorio de tareas (Paso 0) — reconcilia la tabla maestra contra la evidencia real, evitando tareas olvidadas. |
+| `documentalista` | Sonnet | Registra todo en el vault al cerrar cada misión. Cross-check obligatorio de tareas (Paso 0) — reconcilia la tabla maestra contra la evidencia real, evitando tareas olvidadas. |
 
 ---
 
