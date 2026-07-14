@@ -74,8 +74,11 @@ Detalle completo de las prioridades de diseño y los checklists, movidos desde
 - Jerarquía por tamaño + peso + tracking — no solo color
 - Bold headings (600–700), Regular body (400), Medium labels (500)
 
-### 7 · Animación — MEDIO
+### 7 · Animación — ALTO
 
+- **Criterio completo y patrones**: skill `animaciones`
+  (`skills/animaciones/`) — framework de decisión, springs, patrones
+  de componente (Emil Kowalski, MIT). Estas reglas son el mínimo, no el techo.
 - Micro-interacciones: 150–300ms; transiciones complejas ≤ 400ms
 - Solo `transform` y `opacity` — nunca animar `width`/`height`/`top`/`left`
 - Easing: `ease-out` al entrar, `ease-in` al salir

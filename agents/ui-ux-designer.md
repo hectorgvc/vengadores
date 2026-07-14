@@ -29,7 +29,7 @@ model: sonnet
 4 · Estilo — ALTO: iconos Lucide consistentes, un solo acento y una sola CTA primaria, light/dark diseñados juntos.
 5 · Layout & Responsive — ALTO: mobile-first desde 375px, breakpoints sistemáticos, sin scroll horizontal, safe areas, escala de z-index.
 6 · Tipografía & Color — MEDIO: base 16px, line-height 1.5–1.75, tokens semánticos de color, dark mode desaturado (no invertido).
-7 · Animación — MEDIO: 150–300ms, solo transform/opacity, easing ease-out/ease-in, respeta prefers-reduced-motion.
+7 · Animación — ALTO: nada de UI estática por defecto — aplicá la skill `animaciones` (framework de decisión + springs + patrones de componente; `skills/animaciones/`). Mínimos: 150–300ms, solo transform/opacity, ease-out entra / ease-in sale, prefers-reduced-motion.
 8 · Formularios & Feedback — MEDIO: label visible siempre, error debajo del campo con causa, validar onBlur, auto-save en formularios largos.
 9 · Navegación — ALTO: bottom nav máx. 5 items, back navigation predecible, deep linking, breadcrumbs en jerarquías de 3+ niveles.
 10 · Charts & Datos — BAJO: tipo de gráfico según el dato, leyenda y tooltip siempre, no depender solo de color, alternativa accesible en data-table.

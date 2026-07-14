@@ -84,6 +84,7 @@ git pull
 | `reporte-proyecto` | "reporte del proyecto X" | Genera reporte desde la bitácora |
 | `headroom-learn` | "aprende de esta sesión" | Mina sesiones → aprendizajes al vault |
 | `wiki-connect` | "conecta con la wiki" | Vincula conceptos técnicos entre proyectos |
+| `animaciones` | "mejorá las animaciones" / "auditá las animaciones" | Framework de decisión + springs + patrones de componente (adaptada de emilkowalski/skills, MIT) |
 | `junior-code-review` | "revisa mi código" | Review orientado a aprendizaje (para Hawkeye) |
 
 ---

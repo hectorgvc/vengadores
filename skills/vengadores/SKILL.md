@@ -87,6 +87,32 @@ arquitectónico, te lo devuelve a vos y ahí recién decidís gastar un
      skill `navegador-qa` verifica local (pre-commit) →
      skill `testsprite` verifica en vivo (post-deploy) →
      `documentalista` registra.
+
+   - **Peer-review cruzado (gate binario, no consejo de 5).** Inspirado en
+     la idea de "los miembros se critican entre sí" de LLM Council, pero
+     reducido a su forma mínima y compatible con el triage:
+     1. Después de que el implementador (Hawkeye o Dev Senior) entrega el
+        fix y **antes** de mandarlo a `navegador-qa`, el `qa-bug-hunter`
+        lee el diff (no la app) y devuelve uno de tres veredictos:
+        `apto` / `re-trabajo: <razón concreta>` / `escalable-a-dev-senior`.
+        Si pide re-trabajo, vuelve al implementador con la causa — no se
+        salta al siguiente paso. Esto reemplaza el "5 LLMs se critican"
+        por "el especialista de calidad revisa al implementador con un
+        gate binario".
+     2. Cuando el `security-analyst` audita, el `dev-senior` lee el
+        reporte y verifica que no haya falsos positivos críticos
+        filtrándose (o que el fix no haya deshabilitado la regla para
+        silenciar la alerta). Si los hay, vuelve a security.
+     3. Cuando el `documentalista` cierra, **vos** (Fury) leés la
+        bitácora y verificás 1) que refleje lo que pasó, 2) que los
+        bugs nuevos estén en `Bugs.md`, 3) que las decisiones estén en
+        `Decisiones/`. Esto es el "chairman verifica" del council.
+
+     Por qué no un consejo de 5 LLMs: ya tenemos vengadores (roles
+     especializados) + mentor (chairman por agente) + triage (cuándo
+     gastar). Un council encima se superpone y rompe la economía de
+     tokens. El peer-review binario entre adyacentes aporta la
+     diversidad de criterio que el council buscaba, sin el costo.
    - Si la app no corre local, omitir `navegador-qa`; si no está
      desplegada, omitir `testsprite`. Sin ninguna de las dos capas,
      cerrar con `documentalista` documentando que quedó sin verificar.
