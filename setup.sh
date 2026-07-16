@@ -302,8 +302,49 @@ else
   warn "La skill 'testsprite' quedará disponible pero inactiva hasta instalar la CLI."
 fi
 
-# ── 12. Git del vault ──────────────────────────────────────
-section "12 · Git del vault"
+# ── 12. Instintos — aprendizaje continuo (opcional) ───────
+section "12 · Instintos — aprendizaje continuo (opcional)"
+
+echo "  Hooks deterministas (PreToolUse/PostToolUse) que capturan cada"
+echo "  tool call para aprender patrones entre sesiones. Corre en TODA"
+echo "  sesión, TODO proyecto — no solo el vault. Local, sin red, redacta"
+echo "  secretos. Promoción a global y generación de skills SIEMPRE piden"
+echo "  confirmación explícita (nunca automáticas)."
+echo ""
+read -rp "  ¿Activar los hooks de instintos? [s/N] " INSTINTOS_CONFIRM
+INSTINTOS_CONFIRM="${INSTINTOS_CONFIRM:-N}"
+
+if [[ "$INSTINTOS_CONFIRM" =~ ^[Ss]$ ]]; then
+  SETTINGS_FILE="$CLAUDE_DIR/settings.json"
+  python3 - <<PYEOF
+import json, os
+path = "$SETTINGS_FILE"
+settings = {}
+if os.path.exists(path):
+    with open(path) as f:
+        settings = json.load(f)
+
+hook_cmd = "~/.claude/skills/instintos/hooks/observe.sh"
+hooks = settings.setdefault("hooks", {})
+for event in ("PreToolUse", "PostToolUse"):
+    bucket = hooks.setdefault(event, [])
+    if not any("instintos/hooks/observe.sh" in str(h) for h in bucket):
+        bucket.append({"matcher": "", "hooks": [{"type": "command", "command": hook_cmd}]})
+
+with open(path, "w") as f:
+    json.dump(settings, f, indent=2)
+print("Hooks de instintos registrados en settings.json")
+PYEOF
+  info "Instintos activados. El observer que genera instincts queda apagado"
+  info "por defecto (config.json) — activalo cuando quieras con:"
+  info "  python3 ~/.claude/skills/instintos/scripts/instinct-cli.py status"
+else
+  info "Instintos omitidos. La skill queda instalada pero sin captura activa."
+  info "Para activarla luego: ejecutá ./setup.sh de nuevo."
+fi
+
+# ── 13. Git del vault ──────────────────────────────────────
+section "13 · Git del vault"
 
 if [ ! -d "$VAULT/.git" ]; then
   git -C "$VAULT" init -q

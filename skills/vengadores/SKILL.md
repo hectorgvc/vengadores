@@ -78,6 +78,11 @@ arquitectónico, te lo devuelve a vos y ahí recién decidís gastar un
    produce cada uno y cómo se pasan el trabajo (handoffs). **Esperá la
    aprobación del usuario** antes de spawnear nada (regla global del vault:
    mostrar planes antes de actuar).
+   - Si estás indeciso entre 2+ planes de batalla igual de defendibles
+     (no por falta de análisis, sino porque genuinamente no hay un
+     ganador obvio), convocá la skill `consejo` **antes** de presentarle
+     algo al usuario. No reemplaza el paso de esperar aprobación — es un
+     insumo previo para llegar con un plan más filtrado.
 4. Aprobado → **ejecutá**: spawneá los agentes en secuencia vía Agent,
    pasándole a cada uno el contexto y el output del anterior.
    - Patrón típico de misión completa:

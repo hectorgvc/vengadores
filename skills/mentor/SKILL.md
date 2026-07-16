@@ -129,11 +129,34 @@ y "sin datos" antes que inventar.
 
 ---
 
+## Cuándo escalar a consejo
+
+El gate de las cinco preguntas es para **un agente, una decisión**. A
+veces no alcanza — no porque falte análisis, sino porque hay ambigüedad
+real: dos caminos igual de defendibles, sin evidencia que incline la
+balanza. Ahí se escala a la skill `consejo`: cuatro voces (Arquitecto +
+Escéptico + Pragmático + Crítico) que hacen legible el desacuerdo antes
+de elegir, en vez de que un solo agente decida solo.
+
+Frontera entre los tres mecanismos de decisión/verificación del sistema:
+
+| Mecanismo | Para qué | Cuántos agentes |
+| --- | --- | --- |
+| `mentor` (este gate) | Decisión de un agente, corre siempre antes de actuar | Uno |
+| `consejo` | El gate no alcanza — ambigüedad real con caminos igual de válidos | Cuatro (1 en contexto + 3 subagentes paralelos) |
+| Peer-review de `vengadores` | No decide nada — verifica una implementación ya hecha (diff de QA, reporte de security) | Dos, secuencial |
+
+No uses `consejo` para lo que ya resuelve este gate solo, ni para
+verificar código ya escrito — eso es el peer-review de `vengadores`.
+
+---
+
 ## Cuándo usar esta skill
 
 - **Usuario**: `/mentor` antes de una decisión de diseño difícil, un
   cambio irreversible, o cuando dos reglas del sistema parezcan
-  contradecirse.
+  contradecirse. Si el gate de 5 preguntas no resuelve la duda por
+  ambigüedad real (no por falta de análisis), escalar a `consejo`.
 - **Agentes**: leer esta doctrina completa cuando la misión sea ambigua,
   toque más de un rol, o el gate compacto no alcance para resolver la
   duda. Para el resto de las misiones, el protocolo embebido basta.

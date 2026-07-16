@@ -331,7 +331,7 @@ testsprite setup --from-env --agent claude
 <!-- SKILLS -->
 <section>
   <div class="container">
-    <h2>Skills disponibles <span class="sub">22 skills core + 6 skills GeneXus opcionales — activadas por palabras clave</span></h2>
+    <h2>Skills disponibles <span class="sub">25 skills core + 6 skills GeneXus opcionales — activadas por palabras clave</span></h2>
     <br>
     <table class="skills-table">
       <thead>
@@ -446,6 +446,21 @@ testsprite setup --from-env --agent claude
           <td><code>presentaciones</code> <span class="badge-new">NUEVO</span></td>
           <td><span class="trigger">/presentaciones apertura|slides|memorable|persuasion|ensenanza</span></td>
           <td>Coach de presentaciones — método MIT de Patrick Winston. Apertura, auditoría de slides (10 crímenes), método STAR, estructura persuasiva, props e historias.</td>
+        </tr>
+        <tr>
+          <td><code>animaciones</code> <span class="badge-new">NUEVO</span></td>
+          <td><span class="trigger">"mejorá las animaciones"</span> · "se ve estático"</td>
+          <td>Framework de decisión + springs + patrones de componente para que la UI no quede estática ni genérica (adaptada de emilkowalski/skills, MIT)</td>
+        </tr>
+        <tr>
+          <td><code>consejo</code> <span class="badge-new">NUEVO</span></td>
+          <td><span class="trigger">"convocá al consejo"</span> · /consejo</td>
+          <td>4 voces (Arquitecto + 3 subagentes paralelos: Escéptico, Pragmático, Crítico) para decisiones ambiguas con desacuerdo estructurado — escalada de <code>mentor</code> (adaptada de affaan-m/ECC, MIT)</td>
+        </tr>
+        <tr>
+          <td><code>instintos</code> <span class="badge-new">NUEVO</span></td>
+          <td><span style="color:var(--text2);font-size:.82rem">hooks (opcional, confirmación en el setup)</span></td>
+          <td>Aprendizaje continuo entre sesiones vía hooks deterministas + observer en background. Nunca promueve a global ni genera skills sin confirmación explícita. Complementa a <code>headroom-learn</code> (adaptada de affaan-m/ECC, MIT)</td>
         </tr>
         <tr>
           <td><code>team-context</code></td>
@@ -675,7 +690,7 @@ $env:TESTSPRITE_API_KEY = "&lt;tu-clave&gt;"</pre>
 │   └── mi-perfil.md
 ├── 01-Proyectos/      ← vacío al inicio
 ├── 02-Plantillas/
-├── 03-Skills/         ← 22 skills
+├── 03-Skills/         ← 25 skills
 ├── 04-Wiki/
 ├── nuevo-proyecto.sh
 └── usar-skill.sh</pre>
