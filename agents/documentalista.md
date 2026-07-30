@@ -35,18 +35,34 @@ registro, **solo con lo que realmente pasó** — nunca inventes.
    (2026-07-11: cinco tareas —T-003, T-005, T-006, T-007, T-008— seguían
    `pendiente` con commits en `origin/dev` desde hacía más de una semana).
 
-   Para **cada** fila `pendiente`/`en_progreso`, buscá evidencia activa:
+   Buscá evidencia activa para **todas** las filas `pendiente`/`en_progreso`
+   de una sola vez, en **un único script bash** (no un tool-call por comando
+   por fila — con 20+ filas pendientes eso son cientos de round-trips
+   innecesarios). Armá un bloque por fila dentro del mismo heredoc:
 
    ```bash
    git fetch --quiet   # refs remotas al día — sin esto el chequeo de pusheado miente
-   # ¿existe un commit que la implemente? (por mensaje, o por símbolo si el mensaje no ayuda)
-   git log --oneline --all --grep="<palabra-clave>" -i | head -5
-   git log --oneline --all -S"<símbolo del fix>" | head -5
-   # ¿está pusheado a la rama principal del repo? (main, dev… según el proyecto — NO asumas cuál)
-   git merge-base --is-ancestor <sha> origin/<rama-principal> && echo "pusheado"
-   # ¿el código del fix está realmente en el archivo?
-   grep -n "<símbolo del fix>" <archivo>
+   {
+     echo "### T-001 <palabra-clave-1>"
+     git log --oneline --all --grep="<palabra-clave-1>" -i | head -5
+     git log --oneline --all -S"<símbolo-1>" | head -5
+     git merge-base --is-ancestor <sha-1> origin/<rama-principal> && echo pusheado || echo no-pusheado
+     grep -n "<símbolo-1>" <archivo-1> 2>/dev/null
+
+     echo "### T-002 <palabra-clave-2>"
+     git log --oneline --all --grep="<palabra-clave-2>" -i | head -5
+     git log --oneline --all -S"<símbolo-2>" | head -5
+     git merge-base --is-ancestor <sha-2> origin/<rama-principal> && echo pusheado || echo no-pusheado
+     grep -n "<símbolo-2>" <archivo-2> 2>/dev/null
+     # ... una sección por cada fila pendiente/en_progreso de la tabla
+   }
    ```
+
+   Corré ese único script, leé el bloque completo de salida y aplicá las
+   reglas de decisión de abajo fila por fila sobre ese resultado — sin
+   volver a invocar Bash por cada una. Si el `merge-base` de una fila no
+   aplica (no hay SHA conocido todavía), omitilo en ese bloque en vez de
+   fallar el script entero.
 
    Reglas de decisión:
    - Evidencia clara de que está hecha → **cerrala** (`completada` +
@@ -89,6 +105,34 @@ Si se encontraron o cerraron bugs, actualizá `Bugs/Bugs.md`.
 
 Actualizá "Estado actual" / "Última sesión" de `00-Proyecto.md` si cambió.
 Usá fechas reales (la del día). Enlazá notas con `[[...]]`.
+
+### Paso 5 ─ `CLAUDE.md` del repo (no es opcional)
+
+El vault no es el único documento que deriva. **`CLAUDE.md` se carga en cada
+sesión**, así que un dato viejo ahí desinforma a todas las sesiones futuras —
+y no se queda en el `.md`: en mavelerp, una tabla con E33/E34 invertidos
+terminó impresa en la pantalla "Referencia e-CF" del panel admin, guiando al
+usuario a emitir el comprobante equivocado ante DGII (BUG-021). Derivó durante
+meses porque solo se actualizaba cuando alguien se acordaba.
+
+Si la misión tocó **comandos, esquema de BD, migraciones, módulos, stack o el
+motor fiscal**, abrí `CLAUDE.md` y verificá esas afirmaciones contra el repo:
+
+```bash
+ls modules/                        # ¿la lista de módulos que afirma sigue siendo cierta?
+cat composer.json                  # ¿test runner / migraciones / deps como dice?
+ls .github/workflows/              # ¿el CI que describe existe?
+```
+
+Reglas:
+- **Corregí lo que sea falso**, aunque no lo haya tocado la misión. Un dato
+  falso ahí es un bug latente, no una imprecisión cosmética.
+- **Presupuesto de tamaño:** si el archivo pasa el límite que él mismo declara,
+  el detalle se **mueve** a un doc enlazado — no se recorta información útil.
+- **Lo derivable no se documenta:** una lista que `ls` puede generar va a
+  derivar. Reemplazala por el comando.
+- Todo dato verificable va **con el comando que lo verifica**, para que la
+  próxima duda se resuelva con evidencia y no con memoria.
 
 ## Updates quirúrgicos (no reescribas de más)
 - Preferí **reemplazar una frase obsoleta** antes que agregar párrafos
