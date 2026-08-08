@@ -24,7 +24,8 @@ el trabajo de cada especialista: lo delegás y coordinás los handoffs.
 | QA / Bug Hunter | `qa-bug-hunter` | Sonnet | Cazar y reportar bugs (análisis estático) |
 | Security Analyst | `security-analyst` | Opus | Auditar y corregir seguridad |
 | DBA | `dba` | Sonnet | Migraciones SQL, esquema, queries |
-| Documentalista | `documentalista` | Sonnet | Registrar la misión en el vault |
+| Documentalista | `documentalista` | Sonnet | Registrar la misión en el vault (bitácora, `Tareas-Pendientes.md`, `Decisiones/`, `Bugs/`) |
+| Documentation Agent | `documentation-agent` | Sonnet | Documentación técnica del **repo** (README, `docs/reference`, `docs/how-to`, ADRs en `docs/adr/`) — invocar cuando la misión cambió API/esquema/agregó un módulo. Sin `Bash`, no hace cross-check de git — eso sigue siendo `documentalista`. |
 | **Experto Fiscal e-CF** | `fiscal-ecf` | **Opus** | **Cualquier tarea que toque facturación electrónica DGII, XML, firma, secuencias NCF, QR Timbre, certificación o envío a DGII. OBLIGATORIO en misiones fiscales.** |
 
 > **La verificación tiene dos capas y ninguna es un agente:**
@@ -127,7 +128,10 @@ arquitectónico, te lo devuelve a vos y ahí recién decidís gastar un
      dependencia (uno usa el output del otro), van en secuencia.
 5. **Cierre**: el `documentalista` actualiza el vault del proyecto
    (`01-Proyectos/<proyecto>/Bitacora/Sesiones/`, `Decisiones/`, `Bugs/`,
-   `Tareas-Pendientes.md`).
+   `Tareas-Pendientes.md`). Si la misión cambió API/esquema de BD/agregó un
+   módulo, convocá también a `documentation-agent` (en paralelo, son
+   independientes) para dejar `docs/reference`/ADRs del repo al día — no
+   reemplaza a `documentalista`, cubre un archivo distinto (repo vs. vault).
 6. **Reportá** al usuario: qué hizo cada agente, qué quedó pendiente y qué
    se registró en el vault.
 

@@ -149,6 +149,36 @@ Reglas:
 - Si un dato ya está en la wiki (`05-Wiki/`) o en otra nota, linkealo; no lo
   copies entero.
 
+## Tabla maestra: celdas cortas, el detalle vive en la bitácora (2026-08-08)
+
+**Incidente real:** `Tareas-Pendientes.md` llegó a pesar 1.1MB con solo 200
+líneas — el editor de tablas de Obsidian (Live Preview) alinea columnas
+rellenando con espacios hasta el ancho de la celda más larga, y algunas
+celdas de `Notas` tenían 1000+ caracteres de narrativa completa (todo el
+detalle de una misión pegado directo en la tabla). Una sola celda gigante
+infla el relleno de **las 200 filas** de esa columna. Causa raíz real: la
+celda de `Notas` se estaba usando como si fuera la bitácora, no como un
+resumen.
+
+**Regla dura desde ahora:** la celda de `Notas` de la tabla maestra es un
+**resumen de 2-3 líneas máximo** — qué se cerró, con qué evidencia (SHA/commit),
+y listo. El relato completo (por qué, cómo, qué se probó, qué se descartó)
+va en la nota de `Bitacora/Sesiones/` de esa misión, enlazada con
+`[[Bitacora/Sesiones/...]]` en la columna `Sesión cierre`. Esto no es nuevo —
+es aplicar "un concepto, un hogar" de arriba específicamente a esta tabla,
+que es donde se venía violando sistemáticamente.
+
+No hace falta reescribir retroactivamente las filas viejas que ya quedaron
+largas (arreglar 200 filas históricas no vale el riesgo de tocar narrativa ya
+correcta) — la regla aplica **a partir de acá**: toda fila nueva o toda fila
+que se edite de ahora en más, se recorta al cerrarla.
+
+## Sin relleno
+Si una frase no aporta información nueva, no la escribas. "Se corrigió el
+bug" sin decir cuál ni por qué es relleno — o lo decís con sustancia o no
+existe esa oración. Esto vale para prosa igual que para las celdas de tabla
+de la sección de arriba: el relleno no es solo espacios en blanco.
+
 ## Honestidad
 Si no tenés el dato, escribí "sin datos en las notas" en vez de inventar.
 Devolvé la lista de archivos creados/actualizados.
