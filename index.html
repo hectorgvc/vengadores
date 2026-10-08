@@ -147,7 +147,7 @@
 <!-- AGENTES -->
 <section>
   <div class="container">
-    <h2>El equipo <span class="sub">10 agentes especializados con modelos optimizados por tarea</span></h2>
+    <h2>El equipo <span class="sub">11 agentes especializados con modelos optimizados por tarea</span></h2>
     <br>
     <div class="grid grid-2">
 
@@ -229,6 +229,14 @@
           <span class="badge badge-sonnet"><span class="badge-dot"></span> Sonnet</span>
         </div>
         <div class="agent-desc">Registra cada misión en el vault de Obsidian: bitácora, decisiones ADR, bugs y pendientes. Hace cross-check obligatorio de la tabla maestra de tareas al cerrar cada sesión. Fundamenta en evidencia real (git log/diff), updates quirúrgicos con presupuesto de cambio, y nunca duplica: un concepto, un hogar canónico.</div>
+      </div>
+
+      <div class="agent-card is-new">
+        <div class="agent-top">
+          <span class="agent-name">documentation-agent</span>
+          <span class="badge badge-sonnet"><span class="badge-dot"></span> Sonnet</span>
+        </div>
+        <div class="agent-desc">Documentación técnica del repo: README, docs/reference y docs/how-to, ADRs, docstrings y changelog. Se invoca tras cambios de API, de esquema de BD o módulos nuevos. No escribe código de producción — el vault queda para <code>documentalista</code>.</div>
       </div>
 
     </div>
@@ -331,7 +339,7 @@ testsprite setup --from-env --agent claude
 <!-- SKILLS -->
 <section>
   <div class="container">
-    <h2>Skills disponibles <span class="sub">25 skills core + 6 skills GeneXus opcionales — activadas por palabras clave</span></h2>
+    <h2>Skills disponibles <span class="sub">27 skills — activadas por palabras clave</span></h2>
     <br>
     <table class="skills-table">
       <thead>
@@ -480,46 +488,6 @@ testsprite setup --from-env --agent claude
       </tbody>
     </table>
 
-    <h3 style="margin-top:2rem;color:var(--text2);font-size:.95rem;display:flex;align-items:center;gap:.5rem">
-      <i data-lucide="package" style="width:16px;height:16px;color:var(--brand-light)"></i>
-      Skills GeneXus <span style="font-size:.8rem;color:var(--text2);font-weight:400">— opcionales · instalación manual via submodule</span>
-    </h3>
-    <p style="font-size:.82rem;color:var(--text2);margin:.4rem 0 .8rem">Requieren plataforma GeneXus. Instaladas preguntando <code>¿instalar GeneXus skills?</code> durante el setup, o manualmente: <code>git submodule update --init skills-extra/genexus-skills</code></p>
-    <table>
-      <thead><tr><th>Skill</th><th>Trigger</th><th>Para</th></tr></thead>
-      <tbody>
-        <tr>
-          <td><code>nexa</code></td>
-          <td><span class="trigger">/nexa</span> · "Transaction", "Knowledge Base"</td>
-          <td>Experto GeneXus — modela objetos, genera código GX, buenas prácticas</td>
-        </tr>
-        <tr>
-          <td><code>gx-erp-connector</code></td>
-          <td><span class="trigger">/gx-erp-connector</span> · "conectar SAP", "BAPI"</td>
-          <td>Conecta GeneXus con SAP ERP — genera ExternalObjects y SDTs desde RFC/BAPI</td>
-        </tr>
-        <tr>
-          <td><code>ui-creator</code></td>
-          <td><span class="trigger">/ui-creator</span> · "convierte UI", "imagen a componente"</td>
-          <td>Convierte imágenes y specs OpenAPI en componentes Angular/React con screenshot validation</td>
-        </tr>
-        <tr>
-          <td><code>chameleon-controls-library</code></td>
-          <td><span class="trigger">/chameleon-controls-library</span> · "componente ch-*"</td>
-          <td>Construye UIs con los 58 web components Chameleon de GeneXus</td>
-        </tr>
-        <tr>
-          <td><code>design-system-builder</code></td>
-          <td><span class="trigger">/design-system-builder</span> · "design system", "DS"</td>
-          <td>Crea y evoluciona Design Systems CSS enterprise sobre Chameleon</td>
-        </tr>
-        <tr>
-          <td><code>mercury-design-system</code></td>
-          <td><span class="trigger">/mercury-design-system</span> · "Mercury", "Globant theme"</td>
-          <td>Aplica el Mercury Design System (Globant) a UIs construidas con Chameleon</td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </section>
 
@@ -556,17 +524,16 @@ testsprite setup --from-env --agent claude
             <pre id="install-prompt-text" style="padding-right:96px;white-space:pre-wrap">Quiero instalar el sistema Vengadores (agentes + skills de Claude Code) en esta máquina. Encargate vos de todo el proceso — yo no voy a tocar la terminal, así que usá tus herramientas y contame qué vas haciendo en cada paso.
 
 Antes de instalar nada, preguntame en el chat (sí/no):
-1. ¿Instalo las skills de GeneXus? (solo si trabajás con esa plataforma, ~9MB extra)
-2. ¿Instalo los git guardrails? (bloquean comandos destructivos como push --force o reset --hard antes de ejecutarlos)
+1. ¿Instalo los git guardrails? (bloquean comandos destructivos como push --force o reset --hard antes de ejecutarlos)
 
 Con mis respuestas, hacé esto:
 
 1. Verificá que git esté instalado (git --version). Si falta, explicame cómo instalarlo y parate ahí.
 2. Cloná el repo en ~/vengadores (si la carpeta ya existe, hacé git -C ~/vengadores pull en vez de clonar de nuevo):
    git clone https://github.com/hectorgvc/vengadores.git ~/vengadores
-3. Detectá mi sistema operativo y corré el setup sin pedirme que lo haga yo a mano, pasándole mis respuestas por stdin en este orden (confirmar instalación, GeneXus, guardrails):
-   - Linux/macOS/WSL2: chmod +x setup.sh && printf 'S\n&lt;respuesta-genexus&gt;\n&lt;respuesta-guardrails&gt;\n' | ./setup.sh
-   - Windows (PowerShell): "S`n&lt;respuesta-genexus&gt;`n&lt;respuesta-guardrails&gt;" | .\setup.ps1
+3. Detectá mi sistema operativo y corré el setup sin pedirme que lo haga yo a mano, pasándole mis respuestas por stdin en este orden (confirmar instalación, guardrails):
+   - Linux/macOS/WSL2: chmod +x setup.sh && printf 'S\n&lt;respuesta-guardrails&gt;\n' | ./setup.sh
+   - Windows (PowerShell): "S`n&lt;respuesta-guardrails&gt;" | .\setup.ps1
 4. Cuando termine, leeme el resumen que imprime el script (vault, agentes, skills instaladas).
 5. Ejecutá vos mismo la skill jarvis ahora mismo para hacerme la entrevista de onboarding y generar mi CLAUDE-global.md — no esperes a que te lo pida.
 6. Cerrá con un resumen corto: dónde quedó el vault, cuántos agentes y skills quedaron activos, y cuál es el próximo paso (crear mi primer proyecto con ./nuevo-proyecto.sh "Nombre" /ruta/al/repo).
@@ -580,8 +547,8 @@ Si algo falla (falta git, sin permisos, sin internet), explicámelo en español 
       </div>
       <div class="install-step">
         <div class="install-step-body">
-          <div class="install-step-title"><span class="step-num">2</span> Respondé dos preguntas rápidas</div>
-          <p style="color:var(--text2)">La IA te pregunta en el chat si querés las skills de GeneXus y los git guardrails antes de instalar nada. El resto — clonar, correr el setup, verificar — lo resuelve sola.</p>
+          <div class="install-step-title"><span class="step-num">2</span> Respondé una pregunta rápida</div>
+          <p style="color:var(--text2)">La IA te pregunta en el chat si querés los git guardrails antes de instalar nada. El resto — clonar, correr el setup, verificar — lo resuelve sola.</p>
         </div>
       </div>
       <div class="install-step">
@@ -700,7 +667,7 @@ $env:TESTSPRITE_API_KEY = "&lt;tu-clave&gt;"</pre>
 │   └── mi-perfil.md
 ├── 01-Proyectos/      ← vacío al inicio
 ├── 02-Plantillas/
-├── 03-Skills/         ← 25 skills
+├── 03-Skills/         ← 27 skills
 ├── 04-Wiki/
 ├── nuevo-proyecto.sh
 └── usar-skill.sh</pre>
