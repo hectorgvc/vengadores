@@ -87,6 +87,8 @@ git pull
 | `animaciones` | "mejorá las animaciones" / "auditá las animaciones" | Framework de decisión + springs + patrones de componente (adaptada de emilkowalski/skills, MIT) |
 | `consejo` | "convocá al consejo" / decisión ambigua sin ganador obvio | 4 voces (Arquitecto + 3 subagentes paralelos) con desacuerdo estructurado — escalada de `mentor` (adaptada de affaan-m/ECC, MIT) |
 | `instintos` | Automática vía hooks (opcional, `[s/N]` en el instalador) | Aprendizaje continuo entre sesiones — nunca promueve ni genera skills sin confirmación explícita (adaptada de affaan-m/ECC, MIT) |
+| `brag-slim` | `/brag-slim` / "hacé un video de lanzamiento" | Video de lanzamiento de 15–25 s (música, motion, copy) de un proyecto o URL, con HTML + navegador headless + ffmpeg (latent-spaces/brag, MIT, sin modificar) |
+| `diagram-design` | `/diagram-design` / "diagramá la arquitectura de…" | 44 tipos de diagrama editorial en HTML/SVG/PNG; importa drawio/Mermaid/Excalidraw (cathrynlavery/diagram-design, MIT, sin modificar) |
 | `junior-code-review` | "revisa mi código" | Review orientado a aprendizaje (para Hawkeye) |
 
 ---
