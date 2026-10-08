@@ -60,6 +60,10 @@ git pull
 | `qa-bug-hunter` | Sonnet | Caza bugs y los reporta (no repara) |
 | `security-analyst` | Opus | Audita y corrige vulnerabilidades |
 | `dba` | Sonnet | Migraciones SQL y cambios de esquema |
+| `devops` | Sonnet | Docker, nginx/PHP-FPM, CI/CD con GitHub Actions y scripts de servidor |
+| `contador` | Opus | Reportes financieros NIIF y DGII (ITBIS, ISR, 606/607) |
+| `dashboard-analyst` | Sonnet | Qué mostrar en un dashboard, con qué gráfico y en qué jerarquía |
+| `documentation-agent` | Sonnet | Docs técnicas del repo: README, ADRs, docstrings, changelog (no toca el vault) |
 | `documentalista` | Sonnet | Registra todo en el vault al cerrar cada misión. Cross-check obligatorio de tareas (Paso 0) — reconcilia la tabla maestra contra la evidencia real, evitando tareas olvidadas. |
 
 ---
@@ -89,6 +93,11 @@ git pull
 | `instintos` | Automática vía hooks (opcional, `[s/N]` en el instalador) | Aprendizaje continuo entre sesiones — nunca promueve ni genera skills sin confirmación explícita (adaptada de affaan-m/ECC, MIT) |
 | `brag-slim` | `/brag-slim` / "hacé un video de lanzamiento" | Video de lanzamiento de 15–25 s (música, motion, copy) de un proyecto o URL, con HTML + navegador headless + ffmpeg (latent-spaces/brag, MIT, sin modificar) |
 | `diagram-design` | `/diagram-design` / "diagramá la arquitectura de…" | 44 tipos de diagrama editorial en HTML/SVG/PNG; importa drawio/Mermaid/Excalidraw (cathrynlavery/diagram-design, MIT, sin modificar) |
+| `laravel-specialist` | `/laravel` / "eloquent", "artisan" | Laravel 12 + PHP 8.3: Eloquent, migrations, Sanctum, queues, Pest |
+| `changelog-generator` | `/changelog-generator` / "release notes" | Changelog user-facing desde el historial de git |
+| `scraping` | `/scraping` / "scrapea", "extrae datos de" | Extracción web con la herramienta justa y reglas de etiqueta |
+| `seo` | `/seo audit\|page\|geo\|…` | Auditoría SEO/GEO/AEO para buscadores tradicionales y de IA |
+| `presentaciones` | `/presentaciones apertura\|slides\|…` | Coach de presentaciones (método de Patrick Winston, MIT) |
 | `junior-code-review` | "revisa mi código" | Review orientado a aprendizaje (para Hawkeye) |
 
 ---
