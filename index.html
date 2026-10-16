@@ -339,7 +339,7 @@ testsprite setup --from-env --agent claude
 <!-- SKILLS -->
 <section>
   <div class="container">
-    <h2>Skills disponibles <span class="sub">27 skills — activadas por palabras clave</span></h2>
+    <h2>Skills disponibles <span class="sub">28 skills — activadas por palabras clave</span></h2>
     <br>
     <table class="skills-table">
       <thead>
@@ -439,6 +439,11 @@ testsprite setup --from-env --agent claude
           <td><code>changelog-generator</code></td>
           <td><span class="trigger">/changelog-generator</span> · "release notes"</td>
           <td>Genera changelog user-facing desde git: commits técnicos → notas de versión por categoría</td>
+        </tr>
+        <tr>
+          <td><code>informe-datos</code> <span class="badge-new">NUEVO</span></td>
+          <td><span class="trigger">/informe-datos</span> · "armame un informe de", "analizá este CSV"</td>
+          <td>Informes profesionales de cualquier dato (CSV/Excel, SQL, MCP) en 5 fases con compuertas: planificar → validar datos → analizar → sintetizar → QA. Perfilador CSV sin dependencias. Adaptada de nimrodfisher/data-analytics-skills (MIT).</td>
         </tr>
         <tr>
           <td><code>scraping</code> <span class="badge-new">NUEVO</span></td>
@@ -667,7 +672,7 @@ $env:TESTSPRITE_API_KEY = "&lt;tu-clave&gt;"</pre>
 │   └── mi-perfil.md
 ├── 01-Proyectos/      ← vacío al inicio
 ├── 02-Plantillas/
-├── 03-Skills/         ← 27 skills
+├── 03-Skills/         ← 28 skills
 ├── 04-Wiki/
 ├── nuevo-proyecto.sh
 └── usar-skill.sh</pre>

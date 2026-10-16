@@ -95,6 +95,7 @@ git pull
 | `diagram-design` | `/diagram-design` / "diagramá la arquitectura de…" | 44 tipos de diagrama editorial en HTML/SVG/PNG; importa drawio/Mermaid/Excalidraw (cathrynlavery/diagram-design, MIT, sin modificar) |
 | `laravel-specialist` | `/laravel` / "eloquent", "artisan" | Laravel 12 + PHP 8.3: Eloquent, migrations, Sanctum, queues, Pest |
 | `changelog-generator` | `/changelog-generator` / "release notes" | Changelog user-facing desde el historial de git |
+| `informe-datos` | `/informe-datos` / "armame un informe de…", "analizá este CSV" | Informes profesionales de cualquier dato (CSV/Excel, SQL, MCP): planificar → validar → analizar → sintetizar → QA, con compuertas (adaptada de nimrodfisher/data-analytics-skills, MIT) |
 | `scraping` | `/scraping` / "scrapea", "extrae datos de" | Extracción web con la herramienta justa y reglas de etiqueta |
 | `seo` | `/seo audit\|page\|geo\|…` | Auditoría SEO/GEO/AEO para buscadores tradicionales y de IA |
 | `presentaciones` | `/presentaciones apertura\|slides\|…` | Coach de presentaciones (método de Patrick Winston, MIT) |

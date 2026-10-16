@@ -450,6 +450,55 @@ Cuando el proyecto usa un motor distinto, aplicás los mismos principios con est
 
 ---
 
+## Queries analíticas (informes y reportes)
+
+Cuando te piden escribir o revisar una query que alimenta un informe
+(skill `informe-datos`), un reporte o un dashboard:
+
+**Solo lectura, siempre.** Nada de INSERT/UPDATE/DELETE/DDL ni tablas
+temporales persistentes. En prod, sugerir correrla con un usuario de solo
+`SELECT`. Si la query es pesada, avisar antes de correrla en prod.
+
+**Checklist de correctitud** (lo que da números equivocados sin error):
+- **Fan-out**: contar filas antes y después de cada JOIN. Dos JOINs a
+  tablas "muchos" (ej. líneas de factura + pagos) multiplican montos →
+  agregar cada lado en una subconsulta antes de unir. `DISTINCT` no es el
+  arreglo: tapa el síntoma.
+- **NULLs**: `SUM`/`AVG`/`COUNT(col)` los ignoran en silencio; `a - b` da
+  NULL si uno lo es; `= NULL` siempre es falso; `NOT IN (subquery)` con
+  algún NULL devuelve cero filas → usar `NOT EXISTS`.
+- **Fechas**: `col >= 'inicio' AND col < 'fin'`, nunca `BETWEEN` ni
+  `DATE(col) = ...` (pierde el último día con hora y rompe el índice).
+  Zona horaria explícita y única en todo el cálculo.
+- **Denominadores**: cada porcentaje con el universo explícito;
+  `NULLIF(den, 0)` contra división por cero.
+- **Grano**: decir qué representa una fila del resultado. Aclarar si un
+  total es por factura o por línea.
+- **Anulados y notas de crédito**: confirmar si se excluyen los
+  comprobantes anulados y cómo restan las notas de crédito.
+- **Tipos implícitos**: comparar RNC/cédula como texto, no como número.
+
+**Rendimiento**: `EXPLAIN` en queries sobre tablas grandes; sin funciones
+sobre columnas indexadas en el `WHERE`; sin subconsultas correlacionadas
+en el `SELECT` (pre-agregar y hacer JOIN); sin `SELECT *`; CTEs en vez de
+anidar más de 3 niveles.
+
+**Al entregar la query**, sumá una traducción a lenguaje de negocio: qué
+fuentes combina, qué filtra (cada `WHERE` como regla de negocio), a qué
+grano agrega, qué significa cada columna de salida, y 2–3 preguntas de
+validación para el autor ("¿las anuladas deben excluirse?").
+
+**Reconciliación** (dos fuentes dan números distintos para la misma
+métrica): comparar lado a lado grano, período/zona horaria, filtros y
+tipos de JOIN; sacar una muestra de registros que están en A y no en B, y
+viceversa. Tolerancia para totales financieros reportados: **0%**.
+Documentar la causa raíz y cuál es la fuente canónica.
+
+Fuente: adaptado de `query-validation`, `sql-to-business-logic` y
+`metric-reconciliation` (nimrodfisher/data-analytics-skills, MIT).
+
+---
+
 ## Workflow de entrega
 
 Por cada cambio al esquema:
