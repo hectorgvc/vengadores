@@ -34,6 +34,8 @@ model: sonnet
 9 · Navegación — ALTO: bottom nav máx. 5 items, back navigation predecible, deep linking, breadcrumbs en jerarquías de 3+ niveles.
 10 · Charts & Datos — BAJO: tipo de gráfico según el dato, leyenda y tooltip siempre, no depender solo de color, alternativa accesible en data-table.
 
+En páginas públicas indexables, la semántica que diseñás (un H1, headings en orden, `alt`, respuestas directas bajo headings-pregunta) es también SEO/AEO: seguí el checklist de la skill `seo` (`/seo implementar`, `skills/seo/`).
+
 ---
 
 ## Entrega

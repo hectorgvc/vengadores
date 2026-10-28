@@ -97,7 +97,7 @@ git pull
 | `changelog-generator` | `/changelog-generator` / "release notes" | Changelog user-facing desde el historial de git |
 | `informe-datos` | `/informe-datos` / "armame un informe de…", "analizá este CSV" | Informes profesionales de cualquier dato (CSV/Excel, SQL, MCP): planificar → validar → analizar → sintetizar → QA, con compuertas (adaptada de nimrodfisher/data-analytics-skills, MIT) |
 | `scraping` | `/scraping` / "scrapea", "extrae datos de" | Extracción web con la herramienta justa y reglas de etiqueta |
-| `seo` | `/seo audit\|page\|geo\|…` | Auditoría SEO/GEO/AEO para buscadores tradicionales y de IA |
+| `seo` | `/seo audit\|page\|geo\|…\|implementar` | Auditoría SEO/GEO/AEO para buscadores tradicionales y de IA + modo Dev para aplicarlo en el código |
 | `presentaciones` | `/presentaciones apertura\|slides\|…` | Coach de presentaciones (método de Patrick Winston, MIT) |
 | `junior-code-review` | "revisa mi código" | Review orientado a aprendizaje (para Hawkeye) |
 
