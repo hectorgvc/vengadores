@@ -1,0 +1,1 @@
+Origen: https://github.com/Teddarific/skills (skills/anatomy-asset) commit 7e897b2 2026-10-29. Licencia MIT (LICENSE). Se omitieron media/ y 19 de 22 examples/ por peso (quedan synth-hero, spot-plate, landing-pages); el resto está en el repo original. No editar: para cambios, derivar otra skill.

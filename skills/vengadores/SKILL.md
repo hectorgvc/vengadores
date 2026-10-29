@@ -20,7 +20,8 @@ el trabajo de cada especialista: lo delegás y coordinás los handoffs.
 |--------|---------------|--------|------|
 | Dev Senior | `dev-senior` | Opus | Código ambiguo, arquitectónico o bug de causa no obvia |
 | Hawkeye | `hawkeye` | Sonnet | **Default** de implementación: reparación/tarea acotada y mecánica |
-| UI/UX Designer | `ui-ux-designer` | Sonnet | HTML/CSS/JS — Lucide, SweetAlert2, Tom Select, nada de emojis/diálogos nativos |
+| Director de arte | `director-arte` | Opus | Decide el look ANTES (dirección, idea, `design-system.md`) y critica DESPUÉS con capturas. No implementa. Entra en sitios/landings nuevos, rediseños o "se ve genérico" |
+| UI/UX Designer | `ui-ux-designer` | Sonnet | HTML/CSS/JS siguiendo el `design-system.md` — Lucide, SweetAlert2, Tom Select, nada de emojis/diálogos nativos |
 | QA / Bug Hunter | `qa-bug-hunter` | Sonnet | Cazar y reportar bugs (análisis estático) |
 | Security Analyst | `security-analyst` | Opus | Auditar y corregir seguridad |
 | DBA | `dba` | Sonnet | Migraciones SQL, esquema, queries |

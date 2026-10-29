@@ -1,0 +1,1 @@
+Origen: https://github.com/Leonxlnx/taste-skill (skills/taste-skill) commit 12af471 2026-10-29 (v2.1). Licencia MIT (upstream/LICENSE). Copia sin modificar en upstream/. No editar upstream: las adaptaciones van en SKILL.md.

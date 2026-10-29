@@ -91,6 +91,26 @@ playwright-cli close               # SIEMPRE cerrar al terminar
   elemento en el snapshot NO garantiza que se vea bien.
 - `state-save` / `state-load` para no re-loguearte en cada sesión de prueba.
 
+## Revisión visual a 3 anchos
+
+Para cambios de diseño (no solo de lógica): capturá en escritorio,
+tablet y móvil, y **leé cada captura** con Read antes de dar el visto
+bueno. Un snapshot correcto no prueba que se vea bien.
+
+```bash
+playwright-cli open http://localhost:8080/
+for w in "1440 900" "768 1024" "390 844"; do
+  playwright-cli resize $w
+  playwright-cli screenshot --filename "captura-${w%% *}.png" --full-page
+done
+playwright-cli close
+```
+
+Qué mirar: scroll horizontal, textos cortados, titulares de más de 2
+líneas, márgenes desparejos, huecos vacíos de más de media pantalla,
+targets táctiles chicos en 390. La crítica estética de fondo es de la
+skill `direccion-arte`.
+
 ## Reporte
 
 Igual que testsprite: veredicto literal. Qué se probó, qué se vio
