@@ -83,6 +83,8 @@
   code { font-family: monospace; background: var(--bg3); padding: 2px 7px; border-radius: 4px; font-size: .85em; }
   .trigger { color: var(--brand-light); font-family: monospace; font-size: 0.82rem; }
   .badge-new { background: rgba(225,29,72,.15); color: var(--brand-light); border: 1px solid rgba(225,29,72,.3); padding: 1px 7px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; }
+  .updated-tag { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 20px; padding: 5px 14px; border-radius: 999px; background: rgba(225,29,72,.12); border: 1px solid rgba(225,29,72,.35); color: var(--brand-light); font-size: 0.8rem; font-weight: 600; }
+  .updated-tag .icon { width: 14px; height: 14px; }
 
   /* Flow diagram */
   .flow { display: flex; flex-direction: column; gap: 0; }
@@ -132,6 +134,7 @@
 
 <!-- HERO -->
 <div class="hero">
+  <span class="updated-tag"><i data-lucide="calendar-clock" class="icon"></i> Última actualización: <time datetime="2026-10-29">29 oct 2026</time></span>
   <h1><span>Vengadores</span> Workflow</h1>
   <p>Un equipo de agentes de IA especializados para Claude Code, coordinados por el orquestador y verificados en vivo con TestSprite.</p>
   <div class="hero-btns">
@@ -147,7 +150,7 @@
 <!-- AGENTES -->
 <section>
   <div class="container">
-    <h2>El equipo <span class="sub">11 agentes especializados con modelos optimizados por tarea</span></h2>
+    <h2>El equipo <span class="sub">12 agentes especializados con modelos optimizados por tarea</span></h2>
     <br>
     <div class="grid grid-2">
 
@@ -180,7 +183,15 @@
           <span class="agent-name">ui-ux-designer</span>
           <span class="badge badge-sonnet"><span class="badge-dot"></span> Sonnet</span>
         </div>
-        <div class="agent-desc">Designer senior de producción. 10 categorías de prioridad (WCAG 2.2, iOS HIG, Material Design), Component Checkpoint, pre-delivery checklist. Stack fijo: Lucide, SweetAlert2, Tom Select, Flatpickr, Tippy.js, Simple-DataTables — nunca emojis ni diálogos nativos.</div>
+        <div class="agent-desc">Designer senior de producción. Construye siguiendo el <code>design-system.md</code> del proyecto y se revisa antes de entregar con capturas a 3 anchos y la skill auditoria-ui. 10 categorías de prioridad (WCAG 2.2, iOS HIG, Material Design). Stack fijo: Lucide, SweetAlert2, Tom Select, Flatpickr, Tippy.js, Simple-DataTables — nunca emojis ni diálogos nativos.</div>
+      </div>
+
+      <div class="agent-card is-new">
+        <div class="agent-top">
+          <span class="agent-name">director-arte</span>
+          <span class="badge badge-opus"><span class="badge-dot"></span> Opus</span>
+        </div>
+        <div class="agent-desc">Decide cómo se ve un sitio ANTES de construirlo (dirección de arte, idea sacada del cliente, <code>design-system.md</code> en formato DESIGN.md) y lo critica DESPUÉS mirando capturas a 1440/768/390, hasta 3 rondas. No implementa: entrega correcciones priorizadas al ui-ux-designer.</div>
       </div>
 
       <div class="agent-card">
@@ -456,6 +467,21 @@ testsprite setup --from-env --agent claude
           <td>Auditoría SEO/GEO/AEO: buscadores tradicionales + IA (Perplexity, ChatGPT, Gemini) + featured snippets. Brief de contenido, schema markup, análisis técnico.</td>
         </tr>
         <tr>
+          <td><code>direccion-arte</code> <span class="badge-new">NUEVO</span></td>
+          <td><span class="trigger">/direccion-arte</span> · "se ve genérico", "hacelo como esta captura"</td>
+          <td>Dirección de arte antes de construir, DESIGN.md del proyecto, modo "desde imagen" y crítica con capturas a 3 anchos. Scripts de dirección, lint e inspector en navegador real (adaptada de Leonxlnx/taste-skill, MIT).</td>
+        </tr>
+        <tr>
+          <td><code>auditoria-ui</code> <span class="badge-new">NUEVO</span></td>
+          <td><span class="trigger">/auditoria-ui</span> · "revisá la UI", "chequeá accesibilidad"</td>
+          <td>~90 reglas de interfaz de Vercel (accesibilidad, foco, formularios, tipografía, rendimiento…) + reglas duras del equipo. Hallazgos en formato <code>archivo:línea</code> (vercel-labs/web-interface-guidelines, MIT).</td>
+        </tr>
+        <tr>
+          <td><code>anatomy-asset</code> <span class="badge-new">NUEVO</span></td>
+          <td><span class="trigger">"ilustración isométrica"</span> · "hero para la landing"</td>
+          <td>Ilustraciones isométricas SVG detalladas para landings (hero, spots, tiles) cuando no hay fotos reales. Teddarific/skills (MIT, sin modificar).</td>
+        </tr>
+        <tr>
           <td><code>presentaciones</code> <span class="badge-new">NUEVO</span></td>
           <td><span class="trigger">/presentaciones apertura|slides|memorable|persuasion|ensenanza</span></td>
           <td>Coach de presentaciones — método MIT de Patrick Winston. Apertura, auditoría de slides (10 crímenes), método STAR, estructura persuasiva, props e historias.</td>
@@ -657,6 +683,7 @@ $env:TESTSPRITE_API_KEY = "&lt;tu-clave&gt;"</pre>
 ├── agents/
 │   ├── dev-senior.md
 │   ├── hawkeye.md     ← nuevo
+│   ├── director-arte.md
 │   ├── ui-ux-designer.md
 │   ├── qa-bug-hunter.md
 │   ├── security-analyst.md

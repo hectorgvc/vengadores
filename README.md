@@ -1,5 +1,7 @@
 # Vengadores Workflow
 
+![Última actualización](https://img.shields.io/badge/%C3%BAltima%20actualizaci%C3%B3n-2026--10--29-e11d48?style=for-the-badge)
+
 Sistema de desarrollo con agentes de IA para Claude Code, basado en un vault de Obsidian
 como fuente de verdad. Un equipo de especialistas coordinados por Nick Fury (el orquestador),
 con verificación en vivo via TestSprite.
@@ -56,7 +58,8 @@ git pull
 |--------|--------|-----|
 | `dev-senior` | Opus | Implementa features y repara bugs complejos |
 | `hawkeye` | Sonnet | Dev junior — tareas acotadas con guía explícita |
-| `ui-ux-designer` | Sonnet | Interfaces HTML/CSS/JS — Lucide, SweetAlert2, Tom Select |
+| `director-arte` | Opus | Decide el look antes de construir (`design-system.md`) y lo critica con capturas después — no implementa |
+| `ui-ux-designer` | Sonnet | Interfaces HTML/CSS/JS siguiendo el `design-system.md` — Lucide, SweetAlert2, Tom Select |
 | `qa-bug-hunter` | Sonnet | Caza bugs y los reporta (no repara) |
 | `security-analyst` | Opus | Audita y corrige vulnerabilidades |
 | `dba` | Sonnet | Migraciones SQL y cambios de esquema |
@@ -98,6 +101,9 @@ git pull
 | `informe-datos` | `/informe-datos` / "armame un informe de…", "analizá este CSV" | Informes profesionales de cualquier dato (CSV/Excel, SQL, MCP): planificar → validar → analizar → sintetizar → QA, con compuertas (adaptada de nimrodfisher/data-analytics-skills, MIT) |
 | `scraping` | `/scraping` / "scrapea", "extrae datos de" | Extracción web con la herramienta justa y reglas de etiqueta |
 | `seo` | `/seo audit\|page\|geo\|…\|implementar` | Auditoría SEO/GEO/AEO para buscadores tradicionales y de IA + modo Dev para aplicarlo en el código |
+| `direccion-arte` | `/direccion-arte` / "se ve genérico", "hacelo como esta captura" | Dirección de arte + DESIGN.md + crítica con capturas a 3 anchos (adaptada de Leonxlnx/taste-skill, MIT) |
+| `auditoria-ui` | `/auditoria-ui` / "revisá la UI" | ~90 reglas de interfaz de Vercel + reglas del equipo, hallazgos `archivo:línea` (MIT) |
+| `anatomy-asset` | "ilustración isométrica" | Ilustraciones isométricas SVG para landings (Teddarific/skills, MIT, sin modificar) |
 | `presentaciones` | `/presentaciones apertura\|slides\|…` | Coach de presentaciones (método de Patrick Winston, MIT) |
 | `junior-code-review` | "revisa mi código" | Review orientado a aprendizaje (para Hawkeye) |
 
